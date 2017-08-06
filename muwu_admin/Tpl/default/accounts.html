@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>半兽人 - 后台管理中心</title>
+<link href="__PUBLIC__/admin/css/reset.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/admin/css/zh-cn-system.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/admin/css/table_form.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/admin/css/style/zh-cn-styles1.css" title="styles1" media="screen">
+<link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/admin/css/style/zh-cn-styles3.css" title="styles3" media="screen">
+<link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/admin/css/style/zh-cn-styles4.css" title="styles4" media="screen">
+<script language="javascript" type="text/javascript" src="__PUBLIC__/admin/js/jquery-1.8.0.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/admin/js/admin_common.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/admin/js/styleswitch.js"></script>
+</head>
+<body>
+<div class="subnav">
+    <div class="content-menu ib-a blue line-x">
+    </div>
+<style type="text/css">
+	html{_overflow-y:scroll}
+</style><div class="pad-lr-10">
+<form name="searchform" action="{:U('Channel/accounts')}" method="post">
+<table class="search-form" cellspacing="0" width="100%">
+    <tbody>
+		<tr>
+		<td>
+		<div class="explain-col">
+		日期： 
+            <link rel="stylesheet" type="text/css" href="__PUBLIC__/js/calendar/jscal2.css"/>
+			<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/calendar/border-radius.css"/>
+			<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/calendar/win2k.css"/>
+			<script type="text/javascript" src="__PUBLIC__/js/calendar/calendar.js"></script>
+			<script type="text/javascript" src="__PUBLIC__/js/calendar/lang/en.js"></script>
+			<input type="text" name="start" id="start" value="{$starttime|date="Y-m-d",###}" size="10" class="date" readonly>&nbsp;<script type="text/javascript">
+			Calendar.setup({
+			weekNumbers: true,
+		    inputField : "start",
+		    trigger    : "start",
+		    dateFormat: "%Y-%m-%d",
+		    showTime: false,
+		    minuteStep: 1,
+		    onSelect   : function() {this.hide();}
+			});
+        </script> 到   <input type="text" name="endtime" id="endtime" value="{$endtime|date="Y-m-d",###}" size="10" class="date" readonly>&nbsp;<script type="text/javascript">
+			Calendar.setup({
+			weekNumbers: true,
+		    inputField : "endtime",
+		    trigger    : "endtime",
+		    dateFormat: "%Y-%m-%d",
+		    showTime: false,
+		    minuteStep: 1,
+		    onSelect   : function() {this.hide();}
+			});
+        </script>
+<input name="search" class="button" value="统计" type="submit">
+	</div>
+		</td>
+		</tr>
+    </tbody>
+</table>
+</form>
+
+
+<script type="text/javascript"> 
+
+function confirm_delete(){
+	if(confirm('确认删除吗？')) $('#myform').submit();
+}
+
+</script>
+</div>
+</body></html>

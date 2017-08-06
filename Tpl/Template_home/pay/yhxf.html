@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>正在进入支付页面</title>
+</head>
+<body onLoad="document.yhxf.submit();">
+<br />
+<center>正在进入支付页面，请不要关闭和刷新浏览器</center>
+<form name='yhxf' action='http://s2.vnetone.com/Default.aspx' method='post'>
+
+	    <input name='spid'       type=hidden    value="{$data.spid}" >
+	    <!--spID 5位-->
+        <input name='spname'    type=hidden   value="{$data.spname}" >
+	    <!--sp网站 客户网站名-->
+        <input name='spoid'      type=hidden   value="{$data.orderId}" >
+	    <!--sp订单   唯一订单码，长度不超过50字符-->
+        <input name='spreq'     type=hidden   value="{$data.spreq}" >
+	    <!--网站请求地址-->
+        <input name='sprec'     type=hidden  value="{$data.sprec}" >
+	    <!--网站接收地址 请直接以ASP/php/jsp结尾 不要带参数 我方会给此地址加上？参数=XXX 等格式   客户站接收GET URL数据 -->
+        <input name='userid'    type=hidden  value="{$data.userid}">
+	    <!--客户ID-->
+        <input name='userip'    type=hidden   value="{$data.userip}" >
+	    <!--客户浏览器IP自己取IP -->
+        <input name='spmd5'     type=hidden  value="{$data.md5password}">
+	    <!--md5-->
+        <input name='spcustom'  type=hidden  value="{$data.spcustom}" >
+	    <!--用户自己定义30个字符以内 -->
+        <input name='spversion'  type=hidden  value="{$data.spversion}" >
+        <input name='money'  type=hidden  value="{$data.money}" >        <!--用户根据网站自己定义的整数面值如1,2,3,4.....-->
+	    <!--支付版本号码 -->
+   		<input name='urlcode'  type=hidden  value="{$data.urlcode}" >  
+
+</form>
+</body>
+</html>

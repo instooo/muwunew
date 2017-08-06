@@ -1,0 +1,162 @@
+﻿<html>
+<head>
+<meta name="Generator" content="EditPlus">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>无标题文档</title>
+<link href="__PUBLIC__/admin/css/reset.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/admin/css/zh-cn-system.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/admin/css/table_form.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/admin/css/Admin_css.css" type=text/css rel=stylesheet>
+<script type="text/javascript" src="__PUBLIC__/admin/js/jquery-1.8.0.min.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/ueditor/editor_config.js"></script>
+<script type="text/javascript" src="__PUBLIC__/ueditor/editor_all_min.js"></script> 
+<link rel="stylesheet" href="__PUBLIC__/ueditor/themes/default/css/ueditor.css">
+
+<script>
+		$(document).ready(function(){
+		     $("#ch").click(function (){ $(".b11_1").hide();});
+			  $("#no").click(function (){ $(".b11_1").show()});
+			  $("#aa").click(function () { $(".xss").hide()});
+			  $("#aaa").click(function () { $(".xss").show()});
+			  var aa= $("#moxin").val();
+			  if(aa==1){
+			  $("#des").show();
+			  }else{
+			  $("#des").hide();
+			  }
+			  
+			  $("#moxin").change(function(){ 
+				var flag = $(this).val();
+				if(flag==1){
+					$("#des").show();
+				}else{
+					$("#des").hide();
+				}
+			  });
+		  })		 
+</script>
+</head>
+<body>
+<script>
+function chk(){
+	if(document.getElementById("typename").value==""){
+		alert("栏目名称不能为空!");
+		document.getElementById("typename").focus();
+		return false;
+	}
+	$("#webconfig_id").attr('disabled',false);
+	return true;
+}
+</script>
+<div class="pad-10">
+<div class="col-tab">
+<div id="div_setting_1" class="contentList pad-10" style="">
+<form action="__URL__/category_doadd" method="post" id="myform" enctype="multipart/form-data"onSubmit="return chk();">
+<table width="100%" class="table_form">
+
+<if condition="$group_role==1">
+<tr>
+ <th width="160">站点</th>
+ <td width="890" class="y-bg">
+ {$sel}
+ </td>
+</tr>
+<else />
+</if> 
+<tr>
+<th width="160">栏目名称</th>
+<td width="890" class="y-bg"><input type="text" class="input-text" name="typename" id="typename" size="30" >&nbsp;&nbsp;&nbsp;&nbsp;<font color="gray">输入栏目名称</font></td>
+</tr>
+
+<th width="160">栏目标题</th>
+<td width="890" class="y-bg">
+<textarea name="lm_title" id="lm_title" cols="100" rows="1"></textarea>
+</td>
+</tr>
+
+
+<tr class="xss"  style='display:none'>
+  <th width="160" align="right">是否显示描述</th>
+  <td colspan=4 ><input name="is_showdesc" type="radio" id="ch" class="noborder" value="1">
+    是
+      <input name="is_showdesc" type="radio" id="no" class="noborder" value="0" checked>
+      否   <font color="gray">(显示描述之后将不会显示文章列表,常用于学校简介等栏目)</font></td>
+</tr>
+<tr class=b11_1  style='display:none'>
+  <th width="160">是否启用自定义模板</th>
+  <td colspan=4 ><input name="show" type="radio" class="noborder" value="1" id="aa">
+    是
+      <input name="show" type="radio" class="noborder" value="0" id="aaa" checked>
+      否  <font color="gray"> (模板名称必须遵循 show_栏目ID.html 这个规则)</font></td>
+</tr>
+<tr>
+   <th width="160">所属栏目</th>
+  <td colspan=4 >
+  <select ID="TopID" name="fid" style="width:200px"><option value='0' selected='selected'>做为顶级分类</option>
+	<volist name="list" id="v">
+	<option value="{$v.typeid}">{$v.cname}</option>
+	</volist></select></td>
+</tr>
+
+<tr>
+   <th width="160">选择模型</th>
+  <td colspan=4 >
+  <select id="moxin" name="ispage" style="width:200px">
+	<option value='0' selected='selected'>列表模型</option>
+	<option value='1'>单页模型</option>
+	<option value='2'>案例模型</option>		
+</tr>
+
+<tr>
+   <th width="160">外部链接</th>
+  <td colspan=4 ><input name="url" type="text" id="Url" size="40">
+    <select name="islink" type="text">
+		<option value="1">启用</option><option value="0" selected>不启用</option>
+		 </select>	</td>
+</tr>
+<tr>
+   <th width="160">栏目关键字</th>
+  <td colspan=4 ><input name="keywords" type="text" id="KeyWord" size="40">
+    <span class="note"><font color="gray">针对搜索引擎关键字设置,多个用英文逗号隔开</font></span></td>
+</tr>
+<tr id='des'>
+   <th width="160">栏目描述</th>
+  <td colspan=4 >
+  <textarea name="description" id="editor_id"></textarea></td>          
+</tr>
+</tr>
+<tr style='display:none'>
+   <th width="160">导航栏是否显示</th>
+  <td colspan=4 ><input name="ismenu" onClick="if(this.checked){
+			  laoy4.style.display = '';
+		  }" type="radio" class="noborder" value="1">
+    是
+      <input name="ismenu" onClick="if(this.checked){
+			  laoy4.style.display = 'none';
+		  }" type="radio" class="noborder" value="0" checked>
+      否</td>
+</tr>
+
+
+
+<tr id="laoy4">
+   <th width="160">导航排序</th>
+  <td colspan=4><input name="drank" type="text"  value="10" size="4" maxlength="2"></td>
+</tr>
+
+<tr> 
+<td width="160"></td>
+<td colspan=4><input name="Submit" type="submit" class="" value="添 加">&nbsp;&nbsp;<input type="button" onClick="history.go(-1);" class="" value="返 回"></td>
+</tr>
+</table> 
+</form>
+</div>
+<script type="text/javascript">
+    var editora = new UE.ui.Editor({initialContent:''});
+    editora.render("editor_id");
+</script> 
+</body>
+</html>
+
+
+

@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>首页-深圳市联众贝尔木业有限公司</title>
+	<link rel="stylesheet" type="text/css" href="/misc/muwu/css/style.css">
+	<script src="/misc/muwu/js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/misc/muwu/js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<div class="wrap">
+	<include file="./Tpl/Template_muwu/header.html" />	
+
+	<div class="img_tit"><a href="" target="_blank"><img src="/misc/muwu/images/t4.jpg" /></a></div>
+	
+	<div class="pro_nav">
+		<ul class="clearfix">
+			<li class="on"><a href="javascript:void(0);">案例背景</a></li>
+			<li><a href="javascript:void(0);">案例图片</a></li>
+			<li><a href="javascript:void(0);">方案详情</a></li>
+			<li><a href="javascript:void(0);">方案价格</a></li>
+		</ul>
+	</div>
+
+	<div class="case_bg case">
+		<div class="case_bg_inner clearfix">
+			<h3>案例背景<p>CASE BACKGROUND</p></h3>			
+			<div class="case_bg_info">{$result.contentbj}</div>
+		</div>
+	</div>
+
+	<div class="case_img case">
+		<div class="case_img_inner clearfix">
+			<h3>案例图片<p>CASE PICTURES</p></h3>
+			<volist name="result['article_imgar']" id='vo'>
+			<img src="/{$vo}" onclick="serFocus({$key+1})"/>			
+			</volist>		
+		</div>
+		<div class="servicesPop" style="display:none;">
+			<div id="serFocus">	
+				<div class="fr" style="position:relative;"><a href="javascript:void(0)" class="close" onclick="closeSerPop()">&nbsp;</a></div>	
+				<volist name="result['article_imgar']" id='vo'>
+				<div class="box" id="flash{$key}">
+					<img src="/{$vo}" width="400" height="273" />	
+				</div>			
+				</volist>					
+			</div>
+
+			<div class="flash_bar">
+				<volist name="result['article_imgar']" id='vo'>
+					<span class="no" id="f{$key}" onclick="changeflash({$key})"></span>
+				</volist>				
+			</div>
+		</div>
+
+
+	</div>
+	
+	
+<script type="text/javascript">	
+function serFocus(i){
+	$(".servicesPop").slideDown("normal");
+	changeflash(i-1);
+}
+function closeSerPop(){
+	$(".servicesPop").slideUp("fast");
+}
+var currentindex=1;
+function changeflash(i){	
+	currentindex=i;
+	for (j=0;j<=100;j++){
+		if(j==i){			
+			$("#flash"+(j)).css("display","block");
+			$("#f"+j).removeClass();
+			$("#f"+j).addClass("dq");
+		}else{
+			$("#flash"+(j)).css("display","none");
+			$("#f"+j).removeClass();
+			$("#f"+j).addClass("no");
+		}
+	}
+}
+</script>
+
+
+	<div class="case_details case">
+		<div class="case_details_inner clearfix">
+			<h3>方案详情<p>PROGRAMME DETAILS</p></h3>
+			<div class="case_bg_infoa">
+			{$result.contentxq}
+			</div>
+		</div>
+	</div>
+	
+	<div class="case_price case">
+		<div class="case_price_inner clearfix">
+			<h3>方案价格<p>PROGRAMME PRICE</p></h3>
+			<div class="case_price_w">
+				<img class="fl" src="/{$result.img_url}" width="300" />
+				<div class="case_price_data">
+					<p>公司名称：深圳市联众贝尔木来有限公司</p>
+					<p>公司地址：广东省深圳市宝安区大道666号</p>
+					<p>服务热线：<span>400-688-5037</span></p>
+					<a href="" target="_blank" class="price_btn">点击咨询</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<include file="./Tpl/Template_muwu/footer.html" />	
+</div>
+</body>
+</html>

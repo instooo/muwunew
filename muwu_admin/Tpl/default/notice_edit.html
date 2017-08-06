@@ -1,0 +1,193 @@
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>无标题文档</title>
+
+<link href="__PUBLIC__/admin/css/reset.css" rel="stylesheet" type="text/css">
+
+<link href="__PUBLIC__/admin/css/zh-cn-system.css" rel="stylesheet" type="text/css">
+
+<link href="__PUBLIC__/admin/css/table_form.css" rel="stylesheet" type="text/css">
+
+<link href="__PUBLIC__/admin/css/Admin_css.css" type=text/css rel=stylesheet>
+
+<script src="__PUBLIC__/admin/js/jquery.min.js"></script>
+
+<script src="__PUBLIC__/admin/editor/kindeditor.js"></script>
+
+<script src="__PUBLIC__/admin/editor/lang/zh_CN.js"></script>
+
+<script type="text/javascript" src="__PUBLIC__/ueditor/editor_config.js"></script>
+
+<script type="text/javascript" src="__PUBLIC__/ueditor/editor_all_min.js"></script> 
+
+<link rel="stylesheet" href="__PUBLIC__/ueditor/themes/default/ueditor.css">
+
+
+<script>
+
+        var editor;
+
+        KindEditor.ready(function(K) {
+
+                editor = K.create('#description');
+
+        });
+
+
+
+		$(document).ready(
+
+		  function()
+
+		  {
+
+		      $("#ch").click(function (){ $(".b11_1").hide();})
+
+
+
+			  $("#no").click(function (){ $(".b11_1").show()})
+
+
+
+			  $("#aa").click(function () { $(".xss").hide()})
+
+
+
+              $("#aaa").click(function () { $(".xss").show()})
+
+
+
+		  }
+
+		)
+
+
+
+</script>
+
+</head>
+
+<body>
+
+<script>
+
+function chk(){
+	if(document.getElementById("title").value==""){
+		alert("公告标题不能为空!");
+		document.getElementById("title").focus();
+		return false;
+	}
+	
+	$("#webconfig_id").attr('disabled',false);
+}
+
+</script>
+
+
+
+<div class="pad-10">
+
+<div class="col-tab">
+
+<div id="div_setting_1" class="contentList pad-10" style="">
+
+
+
+<form action="__URL__/notice_cat" method="post" id="myform" enctype="multipart/form-data"onSubmit="return chk();">
+<table width="100%" class="table_form">
+<input type="hidden" name="typeid" value="{$list.id}"/>
+
+<if condition="$group_role==1">
+<tr>
+<th width="160">站点</th>
+<td width="890" class="y-bg">{$dm_list}</td>
+</tr>
+<else />
+</if> 
+
+<tr>
+
+ <th width="160">公告标题1</th>
+
+ <td width="890" class="y-bg"><input type="text" class="input-text" name="title" id="title" size="30" value="{$list.title}" >&nbsp;&nbsp;&nbsp;&nbsp;<font color="gray">输入公告标题</font></td>
+  </tr>
+
+
+
+
+
+
+
+
+
+<tr>
+
+   <th width="160">是否显示</th>
+
+<td colspan=4 >
+<input name="isshow" type="radio" class="noborder" value="1" <eq name="list.isshow" value="1">checked</eq>> 是
+<input name="isshow" type="radio" class="noborder" value="0" <eq name="list.isshow" value="0">checked</eq>> 否
+</td>
+</tr>
+
+
+
+<tr>
+<th width="160">是否跳转</th>
+<td colspan=4 >
+<input name="isurl" type="radio" class="noborder" value="1" <eq name="list.isurl" value="1">checked</eq>> 是
+<input name="isurl" type="radio" class="noborder" value="0" <eq name="list.isurl" value="0">checked</eq>> 否
+</td>
+</tr>
+
+<tr>
+<th width="160">跳转地址</th>
+<td colspan=4 >
+<input type="text" id="url" name="url" size="30" class="input-text" value="{$list.url}" />
+</td>
+</tr>
+
+
+
+<tr id="laoy4">
+<th width="160">排序</th>
+<td colspan=4>
+<input name="drank" type="text" size="4" maxlength="3" value="{$list.drank}">
+</td>
+</tr>
+</tr>
+
+<tr>
+   <th width="160">内容</th> 
+  <td colspan=4 ><textarea name="content" id="editor_id">{$list.content}</textarea></td>
+</tr>
+
+<script type="text/javascript">
+    var editor = new UE.ui.Editor({initialContent:''});
+    editor.render("editor_id");
+</script> 
+
+
+<tr> 
+
+<td width="160"></td>
+
+<td colspan=4><input name="Submit" type="submit" class="" value="修改">&nbsp;&nbsp;<input type="button" onClick="history.go(-1);" class="" value="返 回"></td>
+
+</tr>
+
+
+
+</table> 
+</form>
+
+</div>
+
+</body>
+
+</html>
+

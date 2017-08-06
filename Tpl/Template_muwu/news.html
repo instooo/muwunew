@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>深圳市联众贝尔木业有限公司</title>
+	<link rel="stylesheet" type="text/css" href="/misc/muwu/css/style.css">
+	<script src="/misc/muwu/js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/misc/muwu/js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<div class="wrap">
+		<include file="./Tpl/Template_muwu/header.html" />	
+	
+	<div class="img_tit"><a href="" target="_blank"><img src="/misc/muwu/images/t1.jpg" /></a></div>
+
+	<div class="content">
+		<div class="con_inner clearfix">
+			<div class="con_tit">
+				<h3>新闻中心<p>NEWS CENTER</p></h3>
+			</div>
+			<div class="con_nav fl">
+				<ul>
+					<li><a href="/news/">全部</a></li>
+					<volist name='list' id='vo'>
+					<li <if condition="$vo['typeid'] eq $result['typeid']">class="on"</if>><a href="/news/index/id/{$vo.typeid}">{$vo.typename}</a></li>
+					</volist>
+				</ul>
+			</div>
+			<div class="con_right fl">
+			<volist name="news" id="vo">       
+				<div class="n_item one clearfix">
+					<a href="/news/detail/id/{$vo.aid}" target="_blank">
+						<img class="fl" src="{$vo.imgurl}" />
+						<div class="n_item_r">
+							<h3>{$vo.title}</h3>
+							<p>{$vo.description}</p>
+							<span class="more"></span>
+						</div>
+					</a>
+				</div>
+			</volist>	
+			</div>
+			<div class="page">
+				{$page}
+			</div>
+		</div>
+	</div>
+	
+	<include file="./Tpl/Template_muwu/footer.html" />
+</div>
+</body>
+</html>

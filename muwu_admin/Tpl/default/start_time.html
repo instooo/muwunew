@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="/{$config.favicon}" />
+<title>{$info.gamename} {$res.servername}开服倒计时</title>
+<link href="__TMPL__{$config.THEME}/style/css/djs.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__TMPL__{$config.THEME}/js/jquery.js"></script>
+</head>
+
+<body>
+<!-- top-link star -->
+<div id="top_nav">
+	<div class="link_tdbox">
+		<div class="dqgamelogo"><a href="/" target="_blank"><img src="__TMPL__{$config.THEME}/images/logo.jpg"  height="30" /></a></div>
+	    <div class="dqgame"><i>{$username}</i> 您当前正在 <b>{$info.gamename} </b><font>[{$res.servername}]</font></div>
+		<div class="dqgamefn">
+	    <a href="/" target="_blank">首页</a>
+	    <span class="pipe">|</span>
+		<a href="http://{$info.game_web}" target="_blank">游戏官网</a>
+	    <span class="pipe">|</span>
+	    <a href="/members" target="_blank">用户中心</a>
+	    <span class="pipe">|</span>
+	    <a href="/service" target="_blank">客服中心</a>
+	    <span class="pipe">|</span>
+        <a href="{$info.game_bbs}" target="_blank">玩家论坛</a>
+	    <span class="pipe">|</span>
+	    <em>Q群：{$info.qq}</em>
+		</div>
+	</div>
+</div>
+<!-- top-link end -->
+<div id="djs">
+	<div class="djstitle">
+		<span>{$info.gamename} [{$res.servername}] 将于 {$res.start_time|date='Y年m月d日 H:i',###} 开启</span><a href="/games/{$res.gid}" class="fh_list">返回服务器列表</a>
+	</div>
+	<div class="djscon">
+		<h1>{$info.gamename} 【{$res.servername}】</h1>
+		<p class="djs_time">
+			<strong id="left">
+			<span>开服倒计时:</span><b>1</b><span>天</span><b>5</b><span>小时</span><b>53</b><span>分</span><b>46</b><span>秒</span>
+			</strong>
+
+		</p>
+		<div class="xskbox"><span>您可以先领取<a href="/members/card" target="_blank" class="xsk_btn">领取新手卡</a>或逛逛<a href="http://{$info.game_web}"  target="_blank" class="gf_link">官网</a></span></div>
+		<div id="otherbox">
+			<h2>您可以去其他热门区服看看</h2>
+			<ul>
+						<volist name="server" id="vol" offset="1" length="4">
+             			   <li ><a href="/game/{$vol.gid}/{$vol.sid}"target="_blank"><span>[{$vol.servername}]</span><b><em>火爆开服</em></b></a></li>
+			 			</volist>
+            </ul>
+		</div>
+	</div>
+	<div class="djsbottom"></div>
+</div>
+<!-- con end -->
+        <script LANGUAGE="javascript" type="text/javascript">
+var time_end,time_start;
+time_end= new Date("{$res.start_time|date="Y/m/d H:i:s",###}");//结束的时间
+time_end=time_end.getTime();
+
+
+//time_start=new Date("2013/05/20 17:59:50 ");//开始的时间
+//time_start=new Date();//开始的时间
+time_start = new Date("{$nowtime|date="Y/m/d H:i:s",###}");
+time_start=time_start.getTime()+3000;
+
+startclock()
+var timerID = null;
+var timerRunning = false;
+
+
+
+function stopclock () {
+	if(timerRunning)
+		clearTimeout(timerID);
+	timerRunning = false;
+}
+function startclock () {
+	stopclock();
+	
+	showtime();
+}
+
+function showtime()
+{
+ var timer = document.getElementById("left");
+ if(!timer){
+ return ;
+ }
+ //timer.innerHTML =time_server_client;
+ 
+ var time_distance,str_time;
+ var int_day,int_hour,int_minute,int_second;
+ 
+ //调用北京时间:
+  
+
+ time_distance=time_end-time_start;
+
+ if(time_distance>0)
+ {
+  int_day=Math.floor(time_distance/86400000)
+  time_distance-=int_day*86400000;
+  int_hour=Math.floor(time_distance/3600000)
+  time_distance-=int_hour*3600000;
+  int_minute=Math.floor(time_distance/60000)
+  time_distance-=int_minute*60000;
+  int_second=Math.floor(time_distance/1000)
+ 
+  if(int_hour<10)
+   int_hour="0"+int_hour;
+  if(int_minute<10)
+   int_minute="0"+int_minute;
+  if(int_second<10)
+   int_second="0"+int_second;
+  str_time=int_day+"天"+int_hour+"小时"+int_minute+"分钟"+int_second+"秒";
+  
+  
+	Temp='<span>开服倒计时:</span> ';
+	//Temp+=Yearleft+'年, '+Monthleft+'月, ';
+	
+
+	Temp+='<b>'+int_day+'</b><span>天</span><b>'+int_hour+'</b><span>小时</span><b>'+int_minute+'</b><span>分</span><b>'+int_second+'</b><span>秒</span>';
+	timer.innerHTML=Temp;
+	if((int_day+int_hour+int_minute+int_second)==0 ){
+		clearTimeout(timerID);
+		
+		timer.innerHTML='<a href="/game/{$res.gid}/{$res.sid}" class="stargame">开始游戏</a>';
+		//window.location.replace('http://www.602.com/game/show/59/273.html?sign=open');
+		
+	}else{
+		
+		timerID = setTimeout("showtime()",1000);
+		time_start=time_start+1000;
+		timerRunning = true;
+	}
+  
+ }
+ else
+ {
+		clearTimeout(timerID);
+		timer.innerHTML='<a href="/game/{$res.gid}/{$res.sid}" class="stargame">开始游戏</a>';
+		//window.location.replace('http://www.602.com/game/show/59/273.html?sign=open');
+		var qqtime=document.getElementById("qqtime");
+		qqtime.style.display="none";
+ }
+
+ 
+ }
+// -->
+</script>
+
+</body>
+</html>

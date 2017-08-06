@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>半兽人 - 后台管理中心</title>
+<link href="__PUBLIC__/admin/css/reset.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/admin/css/zh-cn-system.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/admin/css/table_form.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/admin/css/style/zh-cn-styles1.css" title="styles1" media="screen">
+<link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/admin/css/style/zh-cn-styles3.css" title="styles3" media="screen">
+<link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/admin/css/style/zh-cn-styles4.css" title="styles4" media="screen">
+
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/calendar/jscal2.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/calendar/win2k.css">
+<script type="text/javascript" src="__PUBLIC__/js/calendar/calendar.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/calendar/lang/en.js"></script>
+
+<script language="javascript" type="text/javascript" src="__PUBLIC__/admin/js/jquery-1.8.0.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/admin/js/admin_common.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/admin/js/styleswitch.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/admin/js/jquery.blockUI.js"></script>
+</head>
+<body>
+<div class="subnav">
+    <div class="content-menu ib-a blue line-x">
+    </div>
+<p>
+      <style type="text/css">
+	html{_overflow-y:scroll}
+      </style>
+</p>
+
+<div class="pad-lr-10">
+<script>
+
+function gbdiv()
+{
+	$.unblockUI();
+}
+
+function jth()
+{
+	$("#lianjie").hide();
+	$("#ddz").show();
+	
+	var id = $('#is_where').val();	
+	var wei_id = $('#web_list').val();
+	if(typeof(wei_id) == "undefined")
+	{
+		wei_id = '0';
+	}
+	$.blockUI({
+		message: $('#displayBox'), 
+		css: { 
+		border: 'none', 
+		padding: '15px',	 
+		backgroundColor: '#000', 
+		width: '15%',
+		'-webkit-border-radius': '10px', 
+		'-moz-border-radius': '10px', 
+		opacity: .5, 
+		color: '#fff' 
+	} }); 	
+	
+	$.post('__URL__/ajx_dlm',{'id':id,'wei_id':wei_id},
+		function(data){
+		if(data.info=='成功')
+		{
+			$("#lianjie").show();
+			$("#ddz").hide();
+			setTimeout($.unblockUI,2000);
+		}
+	},'json');
+	return false;
+}
+
+<!--按照日期静态化-->
+function jth2()
+{
+
+	$("#lianjie").hide();
+	$("#ddz").show();
+	
+	var wei_id = $('#web_list2').val();
+	var ksj = $('#kaishitime').val();
+	var jsj = $('#jieshutime').val();
+	if(typeof(wei_id) == "undefined")
+	{
+		wei_id = '0';
+	}
+	$.blockUI({
+		message: $('#displayBox'), 
+		css: { 
+		border: 'none', 
+		padding: '15px',	 
+		backgroundColor: '#000', 
+		width: '15%',
+		'-webkit-border-radius': '10px', 
+		'-moz-border-radius': '10px', 
+		opacity: .5, 
+		color: '#fff' 
+	} }); 	
+	
+	$.post('__URL__/ajax_time_article',{'wei_id':wei_id,'ksj':ksj,'jsj':jsj},
+		function(data){
+		if(data.info=='成功')
+		{
+			$("#lianjie").show();
+			$("#ddz").hide();
+			setTimeout($.unblockUI,2000);
+		}
+	},'json');
+	return false;
+}
+
+<!--按照栏目静态化-->
+function jth3()
+{
+	$("#lianjie").hide();
+	$("#ddz").show();
+	
+	var wei_id = $('#web_list3').val();
+	var ld_lm = $('#ld_lm').val();
+	if(typeof(wei_id) == "undefined")
+	{
+		wei_id = '0';
+	}
+	$.blockUI({
+		message: $('#displayBox'), 
+		css: { 
+		border: 'none', 
+		padding: '15px',	 
+		backgroundColor: '#000', 
+		width: '15%',
+		'-webkit-border-radius': '10px', 
+		'-moz-border-radius': '10px', 
+		opacity: .5, 
+		color: '#fff' 
+	} }); 	
+	
+	$.post('__URL__/ajax_lm_article',{'wei_id':wei_id,'ld_lm':ld_lm},
+		function(data){
+		if(data.info=='成功')
+		{
+			$("#lianjie").show();
+			$("#ddz").hide();
+			setTimeout($.unblockUI,2000);
+		}
+	},'json');
+	return false;
+}
+</script>
+<form name="searchform" action="{:U('Article/clear_html')}" method="post">
+<div id="displayBox" style="display:none;" >
+<div id="ddz">
+<span style="font-size:18px;">
+<img src="__PUBLIC__/images/loading.gif" style="text-align:left;"/>
+静态页面生成中</span>
+</div>
+<div id="lianjie" style="display:none">
+<span style="font-size:18px;">
+静态页面已生成
+<br/>
+<a style="color:#FFF;" onClick="gbdiv();">关闭</a>
+</span>
+</div>
+</div>
+<table class="search-form" cellspacing="0" width="100%">
+    <tbody>
+		<tr>
+		<td>
+<div class="explain-col">
+
+生成静态化区域：
+
+
+<if condition="$group_role==1">
+<select id="web_list" name="web_list">
+{$op_list}
+</select>
+<else />
+</if> 
+
+
+<select name="is_where" id="is_where">
+<option value="1">全站静态化</option>
+<option value="2">首页</option>
+<option value="3">充值中心</option>
+<option value="4">游戏大厅</option>
+<option value="5">登陆、注册</option>
+<option value="6">客服中心</option>
+<option value="7">资讯中心</option>
+<option value="8">手游中心</option>
+</select>
+
+<input name="search" class="button" value="提交" type="submit" onClick="return jth()">
+</div>
+
+		</td>
+		</tr>
+    </tbody>
+</table>
+</form>
+
+
+
+
+
+<form name="searchform" action="{:U('Article/clear_html')}" method="post">
+<table class="search-form" cellspacing="0" width="100%">
+    <tbody>
+		<tr>
+		<td>
+<div class="explain-col">
+
+文章按照发布日期静态化：
+<if condition="$group_role==1">
+<select id="web_list2" name="web_list2">
+{$op_list}
+</select>
+<else />
+</if> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+请选择日期：
+<input name="kaishitime" id="kaishitime" value="<?php echo date('Y-m-d',strtotime('-1 day')); ?>"  size="11" class="date input-text" readonly="" type="text">
+<script type="text/javascript">
+	Calendar.setup({
+	weekNumbers: true,
+	inputField : "kaishitime",
+	trigger    : "kaishitime",
+	dateFormat: "%Y-%m-%d",
+	showTime: false,
+	minuteStep: 1,
+	onSelect   : function() {this.hide();}
+	});
+</script> 
+————
+  <input name="jieshutime" id="jieshutime" value="<?php echo date('Y-m-d',time()); ?>"  size="11" class="date input-text" readonly="" type="text">
+<script type="text/javascript">
+	Calendar.setup({
+	weekNumbers: true,
+	inputField : "jieshutime",
+	trigger    : "jieshutime",
+	dateFormat: "%Y-%m-%d",
+	showTime: false,
+	minuteStep: 1,
+	onSelect   : function() {this.hide();}
+	});
+</script> 
+
+
+<input name="search" class="button" value="提交" type="submit" onClick="return jth2()">
+</div>
+
+		</td>
+		</tr>
+    </tbody>
+</table>
+</form>
+
+
+
+
+<form name="searchform" action="{:U('Article/clear_html')}" method="post">
+<table class="search-form" cellspacing="0" width="100%">
+    <tbody>
+		<tr>
+		<td>
+<div class="explain-col">
+
+按照栏目静态化：
+<if condition="$group_role==1">
+<select id="web_list3" name="web_list3" onChange="return ajax_lm();">
+{$op_list}
+</select>
+<select id="ld_lm" name="ld_lm">
+</select>
+<else />
+</if> 
+<input name="search" class="button" value="提交" type="submit" onClick="return jth3()">
+</div>
+<div style="margin-top:5px; margin-left:1000px;"><span style="color:#F00; font-size:12px;">服务器需要支持CURL</span> </div>
+
+		</td>
+		</tr>
+    </tbody>
+</table>
+</form>
+
+</div>
+</body></html>
+
+<script>
+$(document).ready(
+	ajax_lm()	   
+)
+
+<!--联动栏目-->
+function ajax_lm()
+{
+	var webconfig_id = $('#web_list3').val();
+	var dud = 0;
+	$.post('game/ajax_get_category',{'webconfig_id':webconfig_id,'dud':dud},
+	function(data){
+		$('#ld_lm').html(data.info);
+		del_option();							
+	},'json');	
+}
+
+function del_option()
+{
+	$("#ld_lm option[value='0']").remove();	
+}
+</script>

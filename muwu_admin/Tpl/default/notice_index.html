@@ -1,0 +1,133 @@
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>无标题文档</title>
+
+<!-- <link href="__PUBLIC__/admin/css/layout.css" rel="stylesheet" type="text/css">
+
+<link href="__PUBLIC__/admin/css/common.css" type="text/css" rel="stylesheet">
+
+<link href="__PUBLIC__/admin/css/Admin_css.css" type=text/css rel=stylesheet> -->
+
+<link href="__PUBLIC__/admin/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+
+<link href="__PUBLIC__/admin/css/style.css" type="text/css" rel="stylesheet">
+
+<link href="__PUBLIC__/admin/css/table_form.css" type="text/css" rel="stylesheet">
+
+<script type="text/javascript" src="__PUBLIC__/admin/js/jquery-1.8.0.min.js"></script>
+
+<script type="text/javascript" src="__PUBLIC__/admin/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+
+<!--
+
+.STYLE1 {
+
+	font-family: tahoma, arial, \5b8b\4f53, sans-serif;
+
+	font-size: 12px;
+
+	line-height: 1.5;
+
+}
+
+-->
+
+</style>
+
+<script>
+function add_yqlj()
+{
+	window.location.href="__URL__/notice_add/topid/{$lm_id}";
+}
+</script>
+</head>
+
+ 
+
+<body>
+<div class="explain-col" style="border:#FFF; background:#FFF;">
+
+</div>
+	<div style="height:5px;"></div>
+    <!--
+    <span style="margin-left:20px; font-size:14px; text-align:center;"><a href="__URL__/category_add/topid/{$lm_id}" style="text-decoration:none;" ><font color="#3e3e3e">增加栏目</font></a></span>-->
+    <input name="search" class="button" value="增加公告" type="button" onClick="add_yqlj();" style="margin-left:10px;">
+    <div style="height:5px;"></div>
+
+
+<div class="table-list">
+
+<table cellspacing="0" width="100%">
+
+  <thead>
+
+    <tr class="STYLE1" >
+
+	 <th width="8%" align="center">栏目ID</th>
+     
+    <th width="30%" align="center">公告标题</th>
+    
+
+     <th width="13%" align="center">显示</th>
+
+	 <th width="17%" align="center">操 作</th>
+
+      </tr>
+
+    </thead>
+
+  <tbody>
+	<!--<?php echo 's'.$list[2]['cname']?>-->
+  <volist name="list" id="vo">
+
+  <tr class="STYLE1" >
+
+	<td align="center">{$vo.id}</td>
+    <td align="center">{$vo.title}
+
+	<eq name="vo.islink" value="1">[{$vo.total}]</eq>
+
+	</td><!--strip_tags-->
+    <td align="center">  
+      <switch name="vo.isshow" >
+        
+        <case value="1">显示</case>
+        
+        <case value="0">不显示</case>
+        
+        </switch>
+    </td>
+
+	 <td align="center">
+	   
+	   <a href="__URL__/notice_edit/typeid/{$vo.id}/web_id/{$lm_id}"><font color="#3e3e3e">编辑</font></a> | <a href="__URL__/notice_del/typeid/{$vo.id}/web_id/{$lm_id}" onClick="JavaScript:return confirm('您确定要删除！确定？')"><font color="#3e3e3e">删除</font></a>
+	   
+	   </td>
+
+  </tr>
+
+ </volist> 
+
+ </tbody>
+
+</table>
+
+<div style="text-align:center;margin:10px;">
+
+<hr>
+
+<include file="Index:copy" />  
+
+</div>
+
+</div>
+
+</body>
+
+</html>

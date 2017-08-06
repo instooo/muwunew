@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>
+      后岩金属材料有限公司
+    </title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+	    <script type="text/javascript" src="/misc/js/jquery.js"></script>
+    <link href="/misc/style/style.css" rel="stylesheet" type="text/css">
+  </HEAD>
+  
+  <BODY>
+    <include file="./Tpl/Template_home/header.html" />
+    <img width="100%" src="/misc/images/banner.jpg" alt="">
+    <div class="ClearBoth">
+    </div>
+    <div class="ClearBoth">
+    </div>
+    <div class="mainbodys">
+      <div class="news">
+        <div class="title">
+          新闻中心
+        </div>
+        <div class="more">
+          <a href="/news/">
+            <img border="0" src="/misc/images/more.png" />
+          </a>
+        </div>
+        <div class='coent'>
+          <ul>
+		  <volist name='news' id="vo">
+            <li>
+              <span class='tit'>
+                ◆&nbsp;
+                <a href='/news/detail/id/{$vo.aid}' target='_blank'>
+                  {$vo.title}
+                </a>
+              </span>
+            </li>
+         </volist>  
+          </ul>
+        </div>
+      </div>
+      <div class="zeren">
+        <div class="title">
+          产品中心
+        </div>
+        <div class="more">
+          <a href="cn/case.asp">
+            <img border="0" src="/misc/images/more.png" />
+          </a>
+        </div>        
+        <div class="conent" style="width:">
+          <ul>
+			<volist name='product' id="vo">
+			<li>
+			<a href="/product/detail/id/{$vo.aid}"><img src="{$vo.imgurl}" width="139" height="99" align="right"></a>
+			</li>
+			</volist>	
+          </ul>
+        </div>
+      </div>
+      <div class="jiyu">
+        <div class="title">
+          联系我们
+        </div>
+        <div class="more">
+          <a href="/contact/">
+            <img border="0" src="/misc/images/more.png" />
+          </a>
+        </div>
+        <div class="wenzi">
+          <DIV class=photo>
+            <IMG border=0 src="/misc/images/index_cont.jpg">
+          </DIV>
+          <DIV class=jieshao>
+            <STRONG>
+              后岩金属材料有限公司
+            </STRONG>
+            <BR>
+            电话：0769-82855869 传真：0769-82855879
+            <BR>
+            手机：13691647899 王先生
+            <BR>
+            <SPAN class=STYLE3>
+              全国统一商务热线：0769-82855869
+            </SPAN>
+            <BR>
+            E-mail：1443252161@qq.com
+            <BR>
+            地址：东莞市长安镇沙头社区咸西工业区振安中路333号A栋8楼816室
+          </DIV>
+        </div>
+      </div>
+    </div>
+    <div class="ClearBoth">
+    </div>
+
+    <include file="./Tpl/Template_home/footer1.html" />
+	   <include file="./Tpl/Template_home/common_left.html" />
+  </BODY>
+
+</HTML>

@@ -1,0 +1,1063 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>半兽人 - 后台管理中心</title>
+
+<link href="__PUBLIC__/admin/css/reset.css" rel="stylesheet" type="text/css">
+
+<link href="__PUBLIC__/admin/css/zh-cn-system.css" rel="stylesheet" type="text/css">
+
+<link href="__PUBLIC__/admin/css/table_form.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/admin/css/style/zh-cn-styles1.css" title="styles1" media="screen">
+
+<link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/admin/css/style/zh-cn-styles3.css" title="styles3" media="screen">
+
+<link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/admin/css/style/zh-cn-styles4.css" title="styles4" media="screen">
+
+<script language="javascript" type="text/javascript" src="__PUBLIC__/admin/js/jquery.min.js"></script>
+
+<script language="javascript" type="text/javascript" src="__PUBLIC__/admin/js/admin_common.js"></script>
+
+<script language="javascript" type="text/javascript" src="__PUBLIC__/admin/js/styleswitch.js"></script>
+
+<script src="__PUBLIC__/js/dialog/jquery.artDialog.js?skin=idialog" type="text/javascript"></script>
+
+<script src="__PUBLIC__/js/ajaxfileupload.js" type="text/javascript"></script>
+
+<script src="__PUBLIC__/js/dialog/plugins/iframeTools.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+	
+
+  $(document).ready(function(){
+
+	/*  $('#load').click(function(){
+
+		  $.ajaxFileUpload({
+
+			  fileElementId :'favicon',
+
+			  secureuri :false,
+
+			  type:'POST',
+
+			  dataType:'json',
+
+			  error:function(){$.dialog.tips('上传图标发生错误,请稍候再试')},
+
+			  success:function(data){
+
+				  $.dialog.tips(data.msg);
+
+			  },
+
+			  url:"{:U('Global/save_icon')}"
+
+			  })
+
+	  })
+
+	  
+
+	  $('#load1').click(function(){
+
+		  $.ajaxFileUpload({
+
+			  fileElementId :'logo',
+
+			  secureuri :false,
+
+			  type:'POST',
+
+			  dataType:'json',
+
+			  error:function(){$.dialog.tips('上传logo发生错误,请稍候再试')},
+
+			  success:function(data){
+
+				  $.dialog.tips(data.msg);
+
+			  },
+
+			  url:"{:U('Global/save_logo')}"
+
+			  })
+
+	  })*/
+
+	  
+
+	  $('#sub').ajaxStart(function(){
+
+		  $.dialog.tips('提交中..');
+
+	  });
+
+	  $('#sub').ajaxComplete(function(){
+
+		   
+
+	  });
+
+	  $('#sub').click(function(){
+
+		  $.ajax({
+
+			  data:$('#myform').serialize(),
+
+			  type:"POST",
+
+			  dataType:'json',
+
+			  url:"{:U('Global/save_basic')}",
+
+			  success:function(data){
+
+				  if(data.status=="0"){
+
+					  $.dialog({
+
+			      			title:'警告',
+
+			      			lock:true,
+
+			      			time:2,
+
+			      			content:data.msg,
+
+			      			icon: 'face-sad'
+
+			        	 });
+
+
+
+				  }else{
+
+					  $.dialog({
+
+			      			title:'恭喜',
+
+			      			lock:true,
+
+			      			time:2,
+
+			      			content:data.msg,
+
+			      			icon: 'face-smile'
+
+			        	 });
+
+ 
+
+				  }
+
+			  },
+
+			  error:function(){
+
+				  $.dialog.tips('对不起,你没有进行任何更改');
+
+			  }
+
+		  })
+
+	  })
+
+  })
+
+function xstp(obj,txt,divname)
+{
+if(txt=='')
+{
+	return ;
+} 	
+if(!obj) return ;
+   
+   var div = document.getElementById(divname);  //取div
+   var t = obj.offsetTop;
+   var l = obj.offsetLeft;
+   var h = obj.clientHeight;
+   var x = event.x;
+   var y = event.y;      //所有的坐标取法自己定
+   
+
+	//div.style.styleFloat="left"; 
+	//div.style.overflow="hidden"; 
+	div.style.marginLeft=x-150+'px'; 
+	//div.style.marginTop=y; 
+	div.style.width="320px"; 
+	div.style.height="250px"; 	
+	div.style.display = "block";  //显示div
+}
+
+function bxtp(divname)
+{
+	var div = document.getElementById(divname); //取div
+	if(div) div.style.display = "none";
+}
+
+
+function hq_token()
+{
+	var a = $('#app_id').val();
+	var b = $('#app_secret').val();
+	if(a=='')
+	{
+		alert('app_id必须填写！');
+		$('#app_id').focus();
+		return false;
+	}
+	if(a=='')
+	{
+		alert('app_secret必须填写！');
+		$('#app_secret').focus();
+		return false;
+	}
+	var url = "http://oauth.api.189.cn/emp/oauth2/v2/authorize?app_id="+a+"&app_secret="+b+"&redirect_uri=http%3A%2F%2F101.227.251.180%3A10001%2Fopen189%2Fauthentication%2Fredirect.php&response_type=code&state=&display=&scope="
+	window.open(url); 
+	
+	
+}	
+
+function jian_ce()
+{
+	if($('#sitename').val()=='')
+	{
+		alert('站点名称必须填写！');
+		$('#sitename').focus();
+		return false;
+	}
+	if($('#sitename2').val()=='')
+	{
+		alert('站点标题必须填写！');
+		$('#sitename2').focus();
+		return false;
+	}
+	if($('#domain').val()=='')
+	{
+		alert('站点域名必须填写！');
+		$('#domain').focus();
+		return false;
+	}
+	return true;
+}
+
+</script>
+
+
+
+</head>
+
+
+<body>
+
+<style type="text/css">
+
+html{_overflow-y:scroll}
+.div_ys{
+   position:absolute;
+   border:1px;
+   background:#FFF;
+   z-index:999;
+   display: none;
+  }
+</style>
+
+
+
+
+<div class="pad-10">
+
+<div class="col-tab">
+
+<ul class="tabBut cu-li">
+
+            <li id="tab_setting_1" class="on" onclick="SwapTab('setting','on','',8,1);">基本配置</li>
+
+            <li id="tab_setting_2" onclick="SwapTab('setting','on','',8,2);" class="">安全配置</li>
+
+            <li id="tab_setting_3" onclick="SwapTab('setting','on','',8,3);" class="">社会化登陆配置</li>
+
+            <li id="tab_setting_4" onclick="SwapTab('setting','on','',8,4);" class="">邮箱配置</li>
+            
+            <li id="tab_setting_5" onclick="SwapTab('setting','on','',8,5);" class="">附件服务器配置</li>
+            
+            <li id="tab_setting_6" onclick="SwapTab('setting','on','',8,6);" class="">短信平台</li>
+            
+            <li id="tab_setting_7" onclick="SwapTab('setting','on','',8,7);" class="">微信平台</li>
+            <li id="tab_setting_8" onclick="SwapTab('setting','on','',8,8);" class="">UC配置</li>
+		<!-- 	<li id="tab_setting_5" onclick="SwapTab('setting','on','',5,5);" class="">ucenter通信配置</li> -->
+
+</ul>
+
+<div id="div_setting_1" class="contentList pad-10" style="">
+
+<table width="100%" class="table_form">
+
+  <tbody>
+  <form action="{:U('Global/save_basic')}" method="post" id="myform" enctype="multipart/form-data" onSubmit="return jian_ce()">
+
+
+  
+
+  <tr>
+
+    <th width="120">站点名称</th>
+
+    <td class="y-bg">
+    <input value="{$info.id}" name="info_id" id="info_id" type="hidden">
+    <input type="text" class="input-text" name="sitename" id="sitename" size="30" value="{$info.sitename}">&nbsp;&nbsp;&nbsp;&nbsp;<font color="gray">输入你的网站名称</font></td>
+
+  </tr>
+
+  <tr>
+
+    <th width="120">站点标题</th>
+
+    <td class="y-bg"><input type="text" class="input-text" name="sitename2" id="sitename2" size="30" value="{$info.sitename2}">&nbsp;&nbsp;&nbsp;&nbsp;<font color="gray">输入你的网站标题</font></td>
+
+  </tr>
+
+   <tr>
+
+    <th width="120">站点域名</th>
+
+    <td class="y-bg"><input type="text" class="input-text" name="domain" id="domain" size="30" value="{$info.domain}">&nbsp;&nbsp;&nbsp;&nbsp;<font color="#FF0000">域名要与实际域名对应</font></td>
+
+  </tr>
+
+  <tr>
+
+    <th width="120">网站关键字（SEO使用）</th>
+
+    <td class="y-bg"><textarea name="keywords" id="keywords" cols="50" rows="6">{$info.keywords}</textarea>&nbsp;&nbsp;&nbsp;&nbsp;<font color="gray"> 有利于SEO优化.请填入符合你网站内容的词语</font></td>
+
+  </tr>
+
+  <tr>
+
+    <th width="120">网站描述（SEO使用）</th>
+
+    <td class="y-bg"><textarea name="descriptions" id="descriptions" cols="50" rows="6">{$info.descriptions}</textarea>&nbsp;&nbsp;&nbsp;&nbsp;<font color="gray"> 输入描述你的网站描述</font></td>
+
+  </tr>
+  
+  
+    <tr>
+    <th width="120">前台模版</th>
+    <td class="y-bg">
+    <select id="theme" name="theme">
+	{$file_moban}
+    </select>
+    </td>
+    </tr>
+  
+  
+  <tr>
+    <th width="120">URL 模式</th>
+    <td class="y-bg">
+    <select name="urlmode">
+    <option value="0" <eq name="info.url_model" value="0">selected</eq>>普通模式</option>
+    <option value="1" <eq name="info.url_model" value="1">selected</eq>>PATHINFO模式</option>
+    <option value="2" <eq name="info.url_model" value="2">selected</eq>>REWRITE模式</option>
+    <option value="3" <eq name="info.url_model" value="3">selected</eq>>兼容模式</option>
+    </select>&nbsp;&nbsp;&nbsp;&nbsp;<font color="gray">可选参数0、1、2、3,代表以下四种模式：0(普通模式);1(PATHINFO模式);2(REWRITE模式);3(兼容模式) 默认为PATHINFO模式，提供最好的用户体验和SEO支持</font></td>
+  </tr>
+  
+  
+
+  <tr>
+
+    <th width="120">URL 后缀</th>
+
+    <td class="y-bg"><select name="suffix">
+
+   	<option value="0" <eq name="info.suffix" value="0">selected</eq>>.html</option>
+
+	<option value="1" <eq name="info.suffix" value="1">selected</eq>>.htm</option>
+
+     <option value="2" <eq name="info.suffix" value="2">selected</eq>>.shtml</option>
+
+			<option value="3" <eq name="info.suffix" value="3">selected</eq>>.php</option>
+
+			<option value="4" <eq name="info.suffix" value="4">selected</eq>>.asp</option>
+
+			<option value="5" <eq name="info.suffix" value="5">selected</eq>>.aspx</option>
+
+			<option value="6" <eq name="info.suffix" value="6">selected</eq>>.jsp</option>
+
+    </select></td>
+
+  </tr>
+
+  <tr>
+
+    <th width="120">站点状态</th>
+
+    <td class="y-bg">
+
+    <input name="open" value="0" type="radio" <eq name="info.open" value="0">checked</eq>> 开启&nbsp;&nbsp;&nbsp;&nbsp;
+
+	<input name="open" value="1" type="radio" <eq name="info.open" value="1">checked</eq> > 关闭</td>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <th width="120">站点注册状态</th>
+
+    <td class="y-bg">
+
+    <input name="openreg" value="0" type="radio" <eq name="info.openreg" value="0">checked</eq>> 开启&nbsp;&nbsp;&nbsp;&nbsp;
+
+	<input name="openreg" value="1" type="radio" <eq name="info.openreg" value="1">checked</eq>> 关闭</td>
+
+    </td>
+
+  </tr>
+
+  <tr>
+
+    <th width="120">是否开启静态化</th>
+
+    <td class="y-bg">
+
+    <input name="is_html" value="0" type="radio" <eq name="info.is_html" value="0">checked</eq>> 开启&nbsp;&nbsp;&nbsp;&nbsp;
+
+	<input name="is_html" value="1" type="radio" <eq name="info.is_html" value="1">checked</eq>> 关闭
+
+	&nbsp;&nbsp;&nbsp;&nbsp;<font color="gray">部分静态化包括文章、官网</font>
+
+	</td>
+
+    </td>
+
+  </tr>
+  
+  
+    <tr>
+    <th width="120">回收站功能</th>
+    <td class="y-bg">
+    <input name="is_recycler" value="1" type="radio" <eq name="info.is_recycler" value="1">checked</eq>> 开启&nbsp;&nbsp;&nbsp;&nbsp;
+	<input name="is_recycler" value="0" type="radio" <eq name="info.is_recycler" value="0">checked</eq>> 关闭</td>
+    </td>
+  </tr>
+
+  
+  
+  
+    <tr>
+
+    <th width="120">网站ico(SEO使用)</th>
+
+    <td class="y-bg">
+    <input type="file"  name="photo1" name="photo1" class="input-text" />
+    <img src="<notempty name='info.favicon'>/{$info.favicon}<else/>/Public/images/moren.jpg</notempty>" width="30px;" height="30px;" onmouseover="xstp(this,'/{$info.favicon}','_tips_div');" onMouseOut="bxtp('_tips_div');" onerror="this.src='/Public/images/moren.jpg'"/>
+	<div id="_tips_div" class="div_ys" style="filter:alpha(opacity=80);opacity:0.8;">
+    <img src="<notempty name='info.favicon'>/{$info.favicon}<else/>/Public/images/moren.jpg</notempty>" width="100%;" height="100%;" onerror="this.src='/Public/images/moren.jpg'" />
+    </div>
+    </td>
+
+  </tr>
+
+    <tr>
+    <th width="120">站点LOGO</th>
+    <td class="y-bg">
+    <input type='file'  name='photo2' id="photo2" class="input-text">
+    <img src="<notempty name='info.logo'>/{$info.logo}<else/>/Public/images/moren.jpg</notempty>" width="30px;" height="30px;" onmouseover="xstp(this,'/{$info.logo}','_tips_two');" onMouseOut="bxtp('_tips_two');" onerror="this.src='/Public/images/moren.jpg'"/>
+    <div id="_tips_two" class="div_ys" style="filter:alpha(opacity=80);opacity:0.8;">
+    <img src="<notempty name='info.logo'>/{$info.logo}<else/>/Public/images/moren.jpg</notempty>" width="100%;" height="100%;" onerror="this.src='/Public/images/moren.jpg'"/>
+    </div>    
+    </td>
+    </tr>  
+    
+    
+    
+    <tr>
+    <th width="120">是否开启水印</th>
+    <td class="y-bg">
+    <input name="is_watermark" value="1" type="radio" <eq name="info.is_watermark" value="1">checked</eq>> 开启&nbsp;&nbsp;&nbsp;&nbsp;
+	<input name="is_watermark" value="0" type="radio" <eq name="info.is_watermark" value="0">checked</eq>> 关闭
+    </td>
+    </td>
+  </tr>
+    
+    <tr>
+    <th width="120">水印图片</th>
+    <td class="y-bg">
+    <input type='file'  name='photo3' id="photo3" class="input-text">
+    <img src="<notempty name='info.watermark'>/{$info.watermark}<else/>/Public/images/moren.jpg</notempty>" width="30px;" height="30px;" onmouseover="xstp(this,'/{$info.watermark}','_tips_san');" onMouseOut="bxtp('_tips_san');" onerror="this.src='/Public/images/moren.jpg'"/>
+    <div id="_tips_san" class="div_ys" style="filter:alpha(opacity=80);opacity:0.8;">
+    <img src="<notempty name='info.watermark'>/{$info.watermark}<else/>/Public/images/moren.jpg</notempty>" width="100%;" height="100%;" onerror="this.src='/Public/images/moren.jpg'"/>
+    </div>    
+    </td>
+    </tr>  
+
+      <tr>
+
+    <th width="120">文网文</th>
+
+    <td class="y-bg">
+
+    <input type="text" class="input-text" name="wenww" id="wenww" size="25" value="{$info.wenww}">
+
+    </td>
+
+  </tr>
+  
+
+
+    <tr>
+    <th width="120">备案</th>
+    <td class="y-bg">
+    <input type="text" class="input-text" name="icp" id="icp" size="25" value="{$info.icp}">
+    </td>
+    </tr>
+
+    <tr>
+
+    <th width="120">增值电信业务经营许可证</th>
+
+    <td class="y-bg">
+
+    <input type="text" class="input-text" name="beian" id="beian" size="25" value="{$info.beian}">
+
+    </td>
+
+  </tr>
+  
+    <tr>
+    <th width="120">积分兑换</th>
+    <td class="y-bg">    
+    <input name="is_score" value="1" type="radio" <eq name="info.is_score" value="1">checked</eq>> 开启&nbsp;&nbsp;&nbsp;&nbsp;
+    <input name="is_score" value="0" type="radio" <eq name="info.is_score" value="0">checked</eq> > 关闭</td>
+    </td>
+    </tr>
+    
+    
+    <tr>
+    <th width="120">平台充值</th>
+    <td class="y-bg">    
+    <input name="is_recharge" value="1" type="radio" <eq name="info.is_recharge" value="1">checked</eq>> 开启&nbsp;&nbsp;&nbsp;&nbsp;
+    <input name="is_recharge" value="0" type="radio" <eq name="info.is_recharge" value="0">checked</eq> > 关闭</td>
+    </td>
+    </tr>
+    
+    <tr>
+    <th width="120">默认推广帐号</th>
+    <td class="y-bg">    
+	<input type="text" id="popularize_name" name="popularize_name" value="{$info.popularize_name}"/>
+    </td>
+    </td>
+    </tr>
+    
+    <tr>    <th width="120">客服热线</th>    <td class="y-bg">    <input type="text" id="service_hotline" name="service_hotline" value="{$info.service_hotline}"/>    </td>    </td>    </tr>       
+    <tr>    <th width="120">客服邮箱</th>    <td class="y-bg">    <input type="text" id="service_email" name="service_email" value="{$info.service_email}"/>    </td>    </td>    </tr>        
+    <tr>    <th width="120">是客服QQ</th>    <td class="y-bg">    <input type="text" id="service_QQ" name="service_QQ" value="{$info.service_QQ}"/>    </td>    </td>    </tr>
+
+      <tr>
+
+    <th width="120">统计代码</th>
+
+    <td class="y-bg">
+
+    <textarea name="tj" id="tj" cols="50" rows="6">{$info.tj}</textarea>
+
+    </td>
+
+  </tr>
+
+
+</tbody></table>
+
+</div>
+
+<div id="div_setting_2" class="contentList pad-10 hidden" style="display: none;">
+
+	<table width="100%" class="table_form">
+
+  <tbody><tr>  
+
+    <th width="120">启用后台管理操作日志</th>
+
+    <td class="y-bg">
+
+	  <input name="save_uselog" value="0" type="radio" <eq name="info.save_uselog" value="0">checked</eq>> 是&nbsp;&nbsp;&nbsp;&nbsp;
+
+	  <input name="save_uselog" value="1" type="radio" <eq name="info.save_uselog" value="1">checked</eq>> 否     </td>
+
+  </tr>
+
+  <tr>
+
+    <th>后台最大登陆失败次数</th>
+
+    <td class="y-bg"><input type="text" class="input-text" name="max_error" id="max_error" size="10" value="{$info.max_error}">&nbsp;&nbsp;&nbsp;&nbsp;<font color="gray">5分钟解锁</font></td>
+
+  </tr>
+
+ </table> </td>
+
+  </tr> 
+
+</tbody></table>
+
+</div>
+
+<div id="div_setting_3" class="contentList pad-10 hidden" style="display: none;">
+
+<table width="100%" class="table_form">
+
+  <tbody><tr>
+
+    <th width="120">启用社会化登陆</th>
+
+    <td class="y-bg">
+
+    <input name="is_sdk" value="1" type="radio" <eq name="info.is_sdk" value="1">checked</eq>> 是&nbsp;&nbsp;&nbsp;&nbsp;
+
+	<input name="is_sdk" value="0" type="radio"  <eq name="info.is_sdk" value="0">checked</eq>> 否</td>
+
+  </tr> 
+	
+    
+    <tr height="20px">
+    </tr>
+    <volist name="sdklist" id="vc"> 
+      
+    <tr height="20px"></tr>
+    <tr>
+    <th>{$vc.web_txt}</th>
+    <td class="y-bg">
+    <input name="is_open{$i}" value="1" type="radio" <eq name="vc.is_open" value="1">checked</eq>> 是&nbsp;&nbsp;&nbsp;&nbsp;
+    <input name="is_open{$i}" value="0" type="radio" <eq name="vc.is_open" value="0">checked</eq>> 否
+    </td>
+    </tr> 
+    
+    <tr>
+    <th>应用ID(AppID)</th>
+    <td class="y-bg"><input type="text" class="input-text" name="appid{$i}" id="appid{$i}" size="30" value="{$vc.appid}"><div id="phpsso_appidTip" class="onShow">请输入应用ID</div></td>
+    </tr> 
+    
+    <tr>
+    <th>应用密钥(AppKey)</th>
+    <td class="y-bg"><input type="text" class="input-text" name="appkey{$i}" id="appkey{$i}" size="50" value="{$vc.appkey}"><div id="phpsso_api_urlTip" class="onShow">请填写应用密钥</div></td>
+    </tr> 
+        
+    </volist>
+  
+  </tbody>  
+  </table>
+
+</div>
+
+<div id="div_setting_4" class="contentList pad-10 hidden" style="display: none;">
+<table width="100%" class="table_form">
+
+  <tbody  style="">
+
+  <tr>
+
+    <th>邮件服务器</th>
+
+    <td class="y-bg"><input type="text" class="input-text" name="mail_server" id="mail_server" size="30" value="{$info.mail_server}"></td>
+
+  </tr>  
+
+  <tr>
+
+    <th>邮件发送端口</th>
+
+    <td class="y-bg"><input type="text" class="input-text" name="mail_port" id="mail_port" size="30" value="{$info.mail_port}"></td>
+
+  </tr> 
+
+  <tr>
+
+    <th>发件人地址</th>
+
+    <td class="y-bg"><input type="text" class="input-text" name="mail_from" id="mail_from" size="30" value="{$info.mail_from}"></td>
+
+  </tr>   
+
+	  <tr>
+
+	    <th>验证用户名</th>
+
+	    <td class="y-bg"><input type="text" class="input-text" name="mail_user" id="mail_user" size="30" value="{$info.mail_user}"></td>
+
+	  </tr> 
+
+	  <tr>
+
+	    <th>验证密码</th>
+
+	    <td class="y-bg"><input type="password" class="input-text" name="mail_password" id="mail_password" size="30" value="{$info.mail_password}"></td>
+
+	  </tr>
+
+
+
+ </tbody>
+
+  <tbody>         
+
+  </tbody></table>
+
+</div>
+
+<div id="div_setting_5" class="contentList pad-10 hidden" style="display: none;">
+<table width="100%" class="table_form">
+<tbody  style="">
+
+
+    <tr>
+    <th width="120">是否启用附件服务器</th>
+    <td class="y-bg">
+    <input name="server_open" value="1" type="radio" <eq name="info.server_open" value="1">checked</eq>> 开启&nbsp;&nbsp;&nbsp;&nbsp;
+    <input name="server_open" value="0" type="radio" <eq name="info.server_open" value="0">checked</eq>> 关闭
+    </td>
+    </tr>
+  
+    <tr>
+    <th width="120">附件服务器地址</th>
+    <td class="y-bg">
+    <input type="text" class="input-text" name="fujian_ip" id="fujian_ip" size="25" value="{$info.fujian_ip}">
+    </td>
+    </tr>
+    
+    
+     <tr>
+    <th width="120">主机IP</th>
+    <td class="y-bg">
+	<input type="text" value="{$info.server_ip}" class="input-text" name="server_ip" id="server_ip" size="25">
+    </td>
+    </tr>
+    
+    <tr>
+    <th width="120">FTP端口</th>
+    <td class="y-bg">
+    <input type="text" value="{$info.server_port}" class="input-text" name="server_port" id="server_port" size="25">
+    </td>
+    </tr>
+    
+    <tr>
+    <th width="120">FTP用户名</th>
+    <td class="y-bg">
+    <input type="text" value="{$info.server_username}" class="input-text" name="server_username" id="server_username" size="25">
+    </td>
+    </tr>
+    
+    <tr>
+    <th width="120">FTP密码</th>
+    <td class="y-bg">
+        <input type="password" value="{$info.server_password}" class="input-text" name="server_password" id="server_password" size="25">
+        <input type="button" id="bu_ce" name="bu_ce" value="测试FTP通道" onClick="return ftp_open();" />
+    </td>
+    </tr>
+
+
+
+
+</tbody>
+<tbody></tbody>
+</table>
+</div>
+
+
+<div id="div_setting_6" class="contentList pad-10 hidden" style="display: none;">
+<table width="100%" class="table_form">
+
+<tbody style="">
+  	<tr>
+    <th width="120">是否开启短信验证</th>
+    <td class="y-bg">
+    <input name="isduanxin" value="1" type="radio" <eq name="info.isduanxin" value="1">checked</eq>> 开启&nbsp;&nbsp;&nbsp;&nbsp;
+    <input name="isduanxin" value="0" type="radio" <eq name="info.isduanxin" value="0">checked</eq>> 关闭
+    </td>
+    </tr>
+    
+    
+    <tr>
+    <th width="120">app_id</th>
+    <td class="y-bg">
+    <input type="text" class="input-text" name="app_id" id="app_id" value="{$info.app_id}" size="80" >
+    </td>
+    </tr>
+    
+    <tr>
+    <th width="120">app_secret</th>
+    <td class="y-bg">
+	<input type="text" class="input-text" name="app_secret" id="app_secret" value="{$info.app_secret}"  size="80"><!--115.28.43.51-->
+    </td>
+    </tr>
+    
+    <tr>
+    <th width="120">access_token</th>
+    <td class="y-bg">
+    <input type="text" class="input-text" name="access_token" id="access_token" value="{$info.access_token}"  size="80">
+    <input type="button" value="获 取" onClick="hq_token()"  />
+    </td>
+    </tr>
+    
+    <tr>
+    <th width="120">短信模式</th>
+    <td class="y-bg">
+    <input name="is_fsdxms" value="0" type="radio" checked onclick="show_dx('0')" <eq name="info.is_fsdxms" value="0">checked</eq>> 免费&nbsp;&nbsp;&nbsp;&nbsp;
+    <input name="is_fsdxms" value="1" type="radio" onclick="show_dx('1')" <eq name="info.is_fsdxms" value="1">checked</eq>> 收费
+    </td>
+    </tr>
+    
+    <tr id="mianfei_div">
+    <th width="120">返回URL</th>
+    <td class="y-bg">
+    <input type="text" class="input-text" name="dx_url" id="dx_url" value="{$info.dx_url}"  size="80"><!--image-->
+    </td>
+    </tr>
+    
+    <tr id="shoufei_div" style="display: none;" >
+    <th width="120">短信模板ID</th>
+    <td class="y-bg">
+    <input type="text" class="input-text" name="dx_id" id="dx_id" value="{$info.dx_id}"  size="80"><!--image-->
+    </td>
+    </tr>
+    
+    <tr>
+    <th width="120">测试接口</th>
+    <td class="y-bg">
+    <input type="text" class="input-text" name="phone" id="phone"  size="15"><!--image-->
+    <input type="button" id="bu_ce" name="bu_ce" value="测试发送验证码" onClick="return ce_phone();" />  
+    </td>
+    </tr>
+</tbody>
+
+<tbody>       
+</tbody>
+</table>
+</div>
+ <script>	
+		<!--测试发送短信-->			
+	    function ce_phone(){		
+		var ms =  $('input[name="is_fsdxms"]:checked').val();//1-收费 0-免费
+		if($('#app_id').val()=='')
+		{
+			alert('app_id必须填写！');
+			$('#app_id').focus();
+			return false;
+		}	
+		if($('#app_secret').val()=='')
+		{
+			alert('app_secret必须填写！');
+			$('#app_secret').focus();
+			return false;
+		}	
+		if($('#access_token').val()=='')
+		{
+			alert('access_token必须填写！');
+			$('#access_token').focus();
+			return false;
+		}	
+		if(ms ==0)
+		{
+			if($('#dx_url').val()=='')
+			{
+				alert('返回URL必须填写！');
+				$('#dx_url').focus();
+				return false;
+			}	
+		}
+		else
+		{
+			if($('#dx_id').val()=='')
+			{
+				alert('短信模板ID必须填写！');
+				$('#dx_id').focus();
+				return false;
+			}	
+		}
+		
+		
+		
+        $.post('__URL__/ce_phone',{'phone':$('#phone').val(),'app_id':$('#app_id').val(),'app_secret':$('#app_secret').val(),'access_token':$('#access_token').val(),'dx_url':$('#dx_url').val(),'ms':ms,'dx_id':$('#dx_id').val()}, 
+			function(data){
+            alert(data.info);
+        },'json');
+    } 
+	<!--测试FTP-->
+	function ftp_open()
+	{
+		if($('#server_ip').val()=='')
+		{
+			alert('ip必须填写！');
+			$('#server_ip').focus();
+			return false;
+		}
+		if($('#server_port').val()=='')
+		{
+			alert('FTP端口必须填写！');
+			$('#server_port').focus();
+			return false;
+		}
+		if($('#server_username').val()=='')
+		{
+			alert('FTP用户名必须填写！');
+			$('#server_username').focus();
+			return false;
+		}
+		if($('#server_password').val()=='')
+		{
+			alert('FTP密码必须填写！');
+			$('#server_password').focus();
+			return false;
+		}
+		
+		$.post('__URL__/ajax_ftpopen',{'server_ip':$('#server_ip').val(),'server_port':$('#server_port').val(),'server_username':$('#server_username').val(),'server_password':$('#server_password').val()},
+			function(data){
+            alert(data.info);
+        },'json');
+	}
+	
+	function show_dx(val)
+	{		
+		if(val == 0)
+		{
+			$('#shoufei_div').hide();
+			$('#mianfei_div').show();
+		}
+		if(val == 1)
+		{
+			$('#shoufei_div').show();
+			$('#mianfei_div').hide();
+		}
+		
+	}
+	
+	</script>
+    
+
+<div id="div_setting_7" class="contentList pad-10 hidden" style="display: none;">
+<table width="100%" class="table_form">
+
+<tbody  style="">
+  	<tr>
+    <th width="120">是否开启微信平台</th>
+    <td class="y-bg">
+    <input name="isweixin" value="1" type="radio"  <eq name="info.isweixin" value="1">checked</eq>> 开启&nbsp;&nbsp;&nbsp;&nbsp;
+    <input name="isweixin" value="0" type="radio"  <eq name="info.isweixin" value="0">checked</eq>> 关闭
+    </td>
+    </tr>
+    
+    
+    <tr>
+    <th width="120">token</th>
+    <td class="y-bg">
+    <input type="text" class="input-text" name="token" id="token" size="25" value="{$info.token}" >
+    </td>
+    </tr>    
+</tbody>
+
+<tbody>       
+</tbody>
+</table>
+</div>
+
+
+<div id="div_setting_8" class="contentList pad-10 hidden" style="display: none;">
+<table width="100%" class="table_form">
+<tbody  style="">
+   <tr>
+    <th width="120">UC配置</th>
+    <td class="y-bg"><textarea name="ucconfig" id="ucconfig" cols="40" rows="18">{$info.ucconfig}</textarea>&nbsp;&nbsp;&nbsp;&nbsp;从UC后台复制粘贴,修改前请先删除相应目录中的配置文件，不然不生效</td>
+    </tr>   
+</tbody>
+<tbody>       
+</tbody>
+</table>
+</div>
+
+<div class="bk15"></div>
+<input name="Submit" type="submit" class="" value="提交">
+</form>
+</div>
+
+</div>
+
+
+
+
+
+<script type="text/javascript">
+
+
+
+function SwapTab(name,cls_show,cls_hide,cnt,cur){
+
+    for(i=1;i<=cnt;i++){
+
+		if(i==cur){
+
+			 $('#div_'+name+'_'+i).show();
+
+			 $('#tab_'+name+'_'+i).attr('class',cls_show);
+
+		}else{
+
+			 $('#div_'+name+'_'+i).hide();
+
+			 $('#tab_'+name+'_'+i).attr('class',cls_hide);
+
+		}
+
+	}
+
+}
+
+
+
+function showsmtp(obj,hiddenid){
+
+	hiddenid = hiddenid ? hiddenid : 'smtpcfg';
+
+	var status = $(obj).val();
+
+	if(status == 1) $("#"+hiddenid).show();
+
+	else  $("#"+hiddenid).hide();
+
+}
+
+function test_mail() {
+
+	var mail_type = $('input[checkbox=mail_type][checked]').val();
+
+	var mail_auth = $('input[checkbox=mail_auth][checked]').val();
+
+    $.post('?m=admin&c=setting&a=public_test_mail&mail_to='+$('#mail_to').val(),{mail_type:mail_type,mail_server:$('#mail_server').val(),mail_port:$('#mail_port').val(),mail_user:$('#mail_user').val(),mail_password:$('#mail_password').val(),mail_auth:mail_auth,mail_from:$('#mail_from').val()}, function(data){
+
+	alert(data);
+
+	});
+
+}
+
+
+
+
+</script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+	var val = '{$info.is_fsdxms}';
+	show_dx(val);
+});
+</script>
+</body></html>

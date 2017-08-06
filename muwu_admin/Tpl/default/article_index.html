@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>半兽人 - 后台管理中心</title>
+<link href="__PUBLIC__/admin/css/reset.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/admin/css/zh-cn-system.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/admin/css/table_form.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/admin/css/style/zh-cn-styles1.css" title="styles1" media="screen">
+<link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/admin/css/style/zh-cn-styles3.css" title="styles3" media="screen">
+<link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/admin/css/style/zh-cn-styles4.css" title="styles4" media="screen">
+<script language="javascript" type="text/javascript" src="__PUBLIC__/admin/js/jquery-1.8.0.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/admin/js/admin_common.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/admin/js/styleswitch.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/admin/js/jquery.blockUI.js"></script>
+
+
+</head>
+<body>
+<div class="subnav">
+    <div class="content-menu ib-a blue line-x">
+    </div>
+<style type="text/css">
+html{_overflow-y:scroll}	
+</style>
+
+<div class="pad-lr-10">
+
+<div style="height:5px;"></div>
+<input name="search" class="button" value="增加文章" type="button" onClick="add_yqlj();" >
+<div style="height:5px;"></div>
+
+
+<script>
+function add_yqlj()
+{
+	window.location.href="__URL__/add/smid/{$fi_id}";
+}
+
+function cjmf()
+{
+	window.location.href="__URL__/article_index_fl/fi_id/{$fi_id}";
+}
+
+function gbdiv()
+{
+	$.unblockUI();
+}
+
+function jth(aid)
+{
+	$("#lianjie").hide();
+	$("#ddz").show();
+	$.blockUI({
+		message: $('#displayBox'), 
+		css: { 
+		border: 'none', 
+		padding: '15px',	 
+		backgroundColor: '#000', 
+		width: '15%',
+		'-webkit-border-radius': '10px', 
+		'-moz-border-radius': '10px', 
+		opacity: .5, 
+		color: '#fff' 
+	} }); 	
+	
+	$.post('__URL__/ajax_jth',{'aid':aid},
+		function(data){
+		if(data.info=='成功')
+		{
+			$("#lianjie").show();
+			$("#ddz").hide();
+			setTimeout($.unblockUI,2000);
+		}
+		else
+		{
+			$("#lianjie").hide();
+			$("#ddz").hide();
+			setTimeout($.unblockUI,100);
+			alert(data.info);
+		}
+	},'json');	
+	return false;
+}
+
+<!--删除文章-->
+function confirm_delete(){
+
+	if(confirm('确认删除吗？')) $('#myform').submit();
+
+}
+
+<!--批量静态化-->
+function pljth()
+{
+	
+	var obj=document.getElementsByName('aid[]'); 
+	var str='';  
+	var fh=0;  
+	for(var i=0; i<obj.length; i++){   
+		if(obj[i].checked == true)
+		{
+			if(fh>0)
+			{
+				str+=','; 
+			}
+			str+=obj[i].value; 
+			fh=1;
+		}		
+	}
+	$("#lianjie").hide();
+	$("#ddz").show();
+	$.blockUI({
+		message: $('#displayBox'), 
+		css: { 
+		border: 'none', 
+		padding: '15px',	 
+		backgroundColor: '#000', 
+		width: '15%',
+		'-webkit-border-radius': '10px', 
+		'-moz-border-radius': '10px', 
+		opacity: .5, 
+		color: '#fff' 
+	} }); 	
+	var web_id = '{$fi_id}';
+	$.post('__URL__/ajax_pl_jth',{'str':str,'web_id':web_id},
+		function(data){
+		if(data.info=='成功')
+		{
+			$("#lianjie").show();
+			$("#ddz").hide();
+			setTimeout($.unblockUI,2000);
+		}
+		else
+		{
+			$("#lianjie").hide();
+			$("#ddz").hide();
+			setTimeout($.unblockUI,100);
+			alert(data.info);
+		}
+	},'json');	
+	
+	return false;
+}
+</script>
+
+
+<form name="searchform" onSubmit="return cjmf();" method="post"> <!-- action="{:U('Article/article_index_fl?fi_id=1')}"-->
+<div id="displayBox" style="display:none;" >
+<div id="ddz">
+<span style="font-size:18px;">
+<img src="__PUBLIC__/images/loading.gif" style="text-align:left;"/>
+静态页面生成中</span>
+</div>
+<div id="lianjie" style="display:none">
+<span style="font-size:18px;">
+静态页面已生成
+<br/>
+<!--<a href="http://www.baidu.com" target="_blank" style="color:#0F0;">地址</a>-->
+<a style="color:#FFF;" onClick="gbdiv();">关闭</a>
+</span>
+</div>
+</div>
+<table class="search-form" cellspacing="0" width="100%">
+    <tbody>
+		<tr>
+		<td>
+		<div class="explain-col">
+        文章名称：  <input value="{$title}" class="input-text" name="title" type="text">  
+        状态：  <select name="status1" id="status1">
+        <option value="">请选择状态</option>
+        <option value="0" <?php if($status1=='0'){echo 'selected';} ?>>审核</option>
+        <option value="1" <?php if($status1=='1'){echo 'selected';} ?>>未审核</option>
+        </select>
+
+所属栏目：<select id="typeid" name="typeid">
+      <option value="" >请选择分类</option>
+    	<volist name="option" id="v">
+    	<option value="{$v.typeid}" <?php if($v['typeid']==$typeid){echo 'selected';} ?>>{$v.cname}</option>
+    	</volist>
+      </select>
+<input name="search" class="button" value="搜索" type="submit">
+	</div>
+		</td>
+		</tr>
+    </tbody>
+</table>
+</form>
+
+
+
+<form name="myform" action="__URL__/delall" method="post">
+<div class="table-list">
+<table cellspacing="0" width="100%">
+	<thead>
+		<tr>
+		<th align="left" width="20"><input value="" id="check_box" onclick="selectall('aid[]');" type="checkbox"></th>
+			<th align="left"></th>
+			<th align="left">ID</th>
+			<th align="left">文章名称</th>
+			<th align="left">发布时间</th>
+			<th align="left">浏览</th>
+			<th align="center">操作</th>
+		</tr>
+	</thead>
+<tbody>
+
+<script>
+//http://
+function tz_read(id)
+{
+	window.open('http://'+'{$ym}'+'/article/read?aid='+id+'_.html');	
+	return false;
+}
+</script>
+
+<volist name="list" id="vo">
+ <tr>
+	<td align="left"><input value="{$vo.aid}" name="aid[]" type="checkbox"></td>
+		<td align="left"></td>
+		<td align="left">{$vo.aid}</td>
+		<td align="left">[{$vo.typename}]&nbsp;&nbsp;   <!--{$vo.typeid}-->  
+       	<a onClick="return tz_read({$vo.aid})" target="_blank">{$vo.title}</a>{$vo.sub}
+<td align="left">{$vo.updatetime|date = "Y-m-d H:i",###}</td>
+	<td align="left">{$vo.hits}
+</td>
+
+		<td align="center">
+			<a class="btn btn-mini" href="__URL__/status/aid/{$vo.aid}/status/{$vo.status}/web_id/{$fi_id}"><eq name= "vo.status" value= "1">未审<else/><font color="red">已审</font></eq></a> |<a class="btn btn-mini btn-primary" href="__URL__/edit/aid/{$vo.aid}/web_id/{$fi_id}">编辑</a>| <a class="btn btn-mini btn-danger" href="__URL__/del/aid/{$vo.aid}/web_id/{$fi_id}" onClick="JavaScript:return confirm('确定要删除？')">删除</a>
+		</td>
+    </tr>
+</volist>
+</tbody>
+</table>
+  <div class="btn"><label for="check_box">全选/取消</label>
+<input class="button" onclick="document.myform.action='__URL__/delall/web_id/{$fi_id}'"  name="Del" value="删除" type="submit">
+<input class="button" onclick="document.myform.action='__URL__/delall_shenhe/web_id/{$fi_id}'"  name="Del"  value="批量审核" type="submit">
+<input class="button" onclick="document.myform.action='__URL__/delall_shenhe/web_id/{$fi_id}'"  name="Del"  value="批量未审" type="submit">
+<input class="button" onclick="document.myform.action='__URL__/delall_shux/fi_id/{$fi_id}'"  name="Del"  value="推荐" type="submit">
+<input class="button" onclick="document.myform.action='__URL__/delall_shux/fi_id/{$fi_id}'"  name="Del"  value="解除推荐" type="submit">
+<input class="button" onclick="document.myform.action='__URL__/delall_shux/fi_id/{$fi_id}'"  name="Del"  value="置顶" type="submit">
+<input class="button" onclick="document.myform.action='__URL__/delall_shux/fi_id/{$fi_id}'"  name="Del" value="解除置顶" type="submit"> 
+<input class="button" onclick="document.myform.action='__URL__/delall_shux/fi_id/{$fi_id}'"  name="Del"  value="首页" type="submit">
+<input class="button" onclick="document.myform.action='__URL__/delall_shux/fi_id/{$fi_id}'"  name="Del"  value="解除首页" type="submit">
+</div>
+<div align="right">{$page}</div>
+</div>
+
+</form>
+</div>
+</body>
+</html>

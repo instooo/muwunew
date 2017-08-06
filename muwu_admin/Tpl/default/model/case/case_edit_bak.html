@@ -1,0 +1,370 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+ <head>
+
+  <title>发布文章</title>
+
+  <meta name="Generator" content="EditPlus">
+
+  <meta name="Author" content="">
+
+  <meta name="Keywords" content="">
+
+  <meta name="Description" content="">
+
+  <link href="__PUBLIC__/admin/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+
+  <link href="__PUBLIC__/admin/css/style.css" type="text/css" rel="stylesheet">
+
+  <script type="text/javascript" src="__PUBLIC__/admin/js/jquery-1.8.0.min.js"></script>
+
+  <script type="text/javascript" src="__PUBLIC__/admin/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript" src="__PUBLIC__/admin/js/dialog/jquery.artDialog.js?skin=default"></script>
+
+  <script type="text/javascript" src="__PUBLIC__/admin/js/jquery.colorpicker.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/js/calendar/jscal2.css">
+
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/calendar/border-radius.css">
+
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/calendar/win2k.css">
+
+<script type="text/javascript" src="__PUBLIC__/js/calendar/calendar.js"></script>
+
+<script type="text/javascript" src="__PUBLIC__/js/calendar/lang/en.js"></script>
+
+  <script type="text/javascript" src="__PUBLIC__/ueditor/editor_config.js"></script>
+
+<script type="text/javascript" src="__PUBLIC__/ueditor/editor_all_min.js"></script> 
+
+<link rel="stylesheet" href="__PUBLIC__/ueditor/themes/default/css/ueditor.css">
+
+  <style type="text/css">
+
+  input[type="text"]{
+
+    height: 18px;
+
+  }
+
+	
+.div_ys{
+   position:absolute;
+   border:1px;
+   background:#FFF;
+   z-index:999;
+   display: none;
+  }	
+  </style>
+
+<script>
+
+$(document).ready(
+
+   function(){
+
+	$(".send").click(function(){
+
+	var $title = $("#title").val();
+
+	var $type = $("#typeid").val();
+
+	if($title==""||$type=="")
+
+	{
+
+	   $.dialog({
+
+	   lock:true,
+
+	   icon:'error',
+
+	   content:'提交失败!至少要填写文章标题,所属栏目,文章内容!',
+
+	   title:"提示信息",
+
+	   ok:true,
+
+	   });
+
+	 return false;
+
+	}
+
+	});
+
+	 $("tr:odd").addClass("ev");
+
+	$("tr:even").addClass("ov");
+
+	$("#cp3").colorpicker({
+
+    fillcolor:true,
+
+    success:function(o,color){
+
+        $("#title").css("color",color);
+
+		$("#TitleFontColor").val(color);
+
+    }
+
+});
+
+}
+
+	   
+
+)
+function round()
+{
+	document.getElementById("Hits").value=Math.ceil(Math.random()*(1000-1)+1);
+}
+
+
+function chk()
+{
+	if(document.getElementById("title").value==""){
+		alert("标题不能为空!");
+		document.getElementById("title").focus();
+		return false;
+	}
+	if(document.getElementById("typeid").value==""){
+		alert("栏目不能为空!");
+		document.getElementById("typeid").focus();
+		return false;
+	}	
+	$("#webconfig_id").attr('disabled',false);
+	return true;
+}
+</script>
+
+ 
+
+ </head>
+
+ <body>
+
+
+
+ <form action="__URL__/doedit"  name="myform" method="post" id="myform" enctype="multipart/form-data" onSubmit="return chk();">
+<div>
+
+<table width="98%" border="0.2" class="table table-condensed table-striped">
+    <if condition="$group_role==1">
+    <tr>
+    <td>站点</td>
+    <td colspan="3">
+    <select id="webconfig_id" name="webconfig_id" disabled="disabled">
+    {$ma_bq}
+    </select>
+    </td>
+    </tr>
+    <else />
+    </if> 
+    
+  <tr>
+    <input type="hidden" name="aid" value="{$list.aid}" />
+    <input type="hidden" name="webid" name="weiid" value="{$list.webconfig_id}"/>
+    <td>文章标题:</td>
+    <td><input type="text" name="title" id="title" size="20" value="{$list.title}" /></td>
+    <td>简略标题:</td>
+    <td>
+    <input name="title_jl" type="text" id="title_jl" value="{$list.title_jl}" size="14" maxlength="60">
+    </td>
+  </tr>
+
+  <tr>
+
+    <td>自定属性:</td><input type="hidden" name="typename" id="ty" >
+
+    <td>
+<!--
+推荐
+<input name="ishot" type="checkbox" class="noborder" id="IsHot" value="1" <eq name="list.ishot" value="1">checked</eq>>
+
+幻灯
+<input name="isflash" type="checkbox" class="noborder" id="IsFlash" value="1" <eq name="list.isflash" value="1">checked</eq>>
+
+置顶
+<input name="istop" type="checkbox" class="noborder" id="istop" value="1" <eq name="list.istop" value="1">checked</eq>>
+
+
+首页
+<input name="isshouye" type="checkbox" class="noborder" id="isshouye" value="1" <eq name="list.isshouye" value="1">checked</eq>>
+
+跳转
+<input name="istiaozhuan" type="checkbox" class="noborder" id="istiaozhuan" value="1" <eq name="list.istiaozhuan" value="1">checked</eq>>
+
+图片
+<input name="istupian" type="checkbox" class="noborder" id="istupian" value="1" <eq name="list.istupian" value="1">checked</eq>>
+
+滚动
+<input name="isgundong" type="checkbox" class="noborder" id="isgundong" value="1" <eq name="list.isgundong" value="1">checked</eq>>
+
+加粗
+<input name="isjiacu" type="checkbox" class="noborder" id="isjiacu" value="1" <eq name="list.isjiacu" value="1">checked</eq>>
+
+头条
+<input name="istoutiao" type="checkbox" class="noborder" id="istoutiao" value="1" <eq name="list.istoutiao" value="1">checked</eq>>
+-->
+{$ls_a}
+    </td>
+    <td>作者:</td>
+    <td><input name="author" type="text" id="Author" value="{$list.author}" size="20" maxlength="200"></td>
+
+  </tr>
+
+  <tr>
+
+    <td>所属栏目:</td>
+
+    <td> <select id="typeid" name="typeid">
+
+    <volist name="option" id="v">
+	<if condition="$v.ispage neq 1 ">
+		<option value="{$v.typeid}" <if condition="$v.typeid ==$atypeid['typeid'] ">selected<else /></if> >{$v.cname}</option>
+	<else/>
+		<optgroup label="{$v.cname}"></optgroup>
+	</if>
+    </volist>
+      </select>
+
+    </td>
+
+
+
+    <td>浏览数:</td>
+
+    <td><input name="hits" type="text" id="Hits" value="{$list.hits}" size="6" maxlength="10">&nbsp;&nbsp;<input style="margin-top: -10px;" name="get" type="button" class="btn btn-primary" onClick="round();" value="随机"></td>
+
+  </tr>
+
+
+    <tr>
+    <td>关键字:</td>
+    <td>
+    <input type="text" id="keywords" name="keywords" value="{$list.keywords}"/>
+    <td>权 重:</td>
+    <td><input name="weight"  type="text" id="weight"  size="14" maxlength="60" value="{$list.weight}"></td>
+    </tr>	
+    
+    
+  
+    <tr>
+    <td>内容简介:</td>
+    <td><textarea name="description" id="note">{$list.description}</textarea></td>
+    <td>跳转url:</td>
+    <td><input name="redirect" type="text" id="redirect" value="{$list.redirect}" size="20" maxlength="200"></td>
+    </tr>
+    
+    <tr>
+    <td>来 源:</td>
+    <td>
+    <input name="from" type="text" id="from" value="{$list.from}" size="14" maxlength="60"></td>
+    <td>Tag标签:</td>
+    <td><input type="text" name="tags" id="tags"  value="{$list.tags}"size="30"/></td>
+    </tr>
+  
+  
+    <tr>
+    <td>创建日期:</td>
+    <td>      
+    <input name="addtime" id="addtime" value="{$list.addtime|date='Y-m-d H:i:s',###}"  size="10" class="date input-text" readonly="" type="text" disabled='disabled'>
+	  <script type="text/javascript">
+			Calendar.setup({
+			weekNumbers: true,
+		    inputField : "addtime",
+		    trigger    : "addtime",
+		    dateFormat: "%Y-%m-%d %H:%M:%S",
+		    showTime: false,
+		    minuteStep: 1,
+		    onSelect   : function() {this.hide();}
+			});
+        </script> 
+    </td>
+    <td>发布日期:</td>
+    <td>
+    <input name="updatetime" id="updatetime" value="{$list.updatetime|date='Y-m-d H:i:s',###}"  size="10" class="date input-text" readonly="" type="text">
+	  <script type="text/javascript">
+			Calendar.setup({
+			weekNumbers: true,
+		    inputField : "updatetime",
+		    trigger    : "updatetime",
+		    dateFormat: "%Y-%m-%d %H:%M:%S",
+		    showTime: false,
+		    minuteStep: 1,
+		    onSelect   : function() {this.hide();}
+			});
+        </script> 
+    </td>
+    </tr>
+    
+    <tr>
+    <td>图 片:</td>
+    <td>
+    <input type="file"  name="photo1" name="photo1" class="input-text"/> 
+    <img src="<notempty name='list.article_img'>/{$list.article_img}<else/>/Public/system/images/default.jpg</notempty>" width="70px;" height="60px;" />
+    </td>
+    <td>允许评论:</td>
+    <td>
+    <input name="discuss_open" value="1" type="radio" <eq name="list.discuss_open" value="1">checked</eq> > 开启&nbsp;&nbsp;&nbsp;&nbsp;
+    <input name="discuss_open" value="0" type="radio" <eq name="list.discuss_open" value="0">checked</eq>> 关闭
+    </td>
+    </tr>
+<tr>
+
+<td>截止日期:</td>
+
+<td><input name="endtime" id="endtime" value="<notempty name="list.endtime">{$list.endtime|date='Y-m-d H:i:s',###}</notempty>"  size="10" class="date input-text" readonly="" type="text" >
+
+<script type="text/javascript">
+
+	Calendar.setup({
+
+	weekNumbers: true,
+
+	inputField : "endtime",
+
+	trigger    : "endtime",
+
+	dateFormat: "%Y-%m-%d %H:%M:%S",
+
+	showTime: false,
+
+	minuteStep: 1,
+
+	onSelect   : function() {this.hide();}
+
+	});
+
+</script> </td>
+
+
+
+</tr>
+  <tr><td colspan='4'><textarea id="editor_id" name="content" style="width:100%;">{$list.content}
+</textarea></td></tr>
+
+
+
+</table>
+
+</div>
+
+<div ><input type="submit" class="btn btn-primary" value="发布"/> <input type="reset" class="btn btn-primary" value="重置" /></div>
+<input type="hidden" value="{$list.article_img}" name="yc_article_img" id="yc_article_img"/> 
+</form>
+
+<script type="text/javascript">
+    var editor = new UE.ui.Editor({initialContent:''});
+    editor.render("editor_id");
+</script> 
+
+ </body>
+
+</html>
+

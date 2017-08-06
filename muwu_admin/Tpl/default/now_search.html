@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>半兽人 - 后台管理中心</title>
+<link href="__PUBLIC__/admin/css/reset.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/admin/css/zh-cn-system.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/admin/css/table_form.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/admin/css/style/zh-cn-styles1.css" title="styles1" media="screen">
+<link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/admin/css/style/zh-cn-styles3.css" title="styles3" media="screen">
+<link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/admin/css/style/zh-cn-styles4.css" title="styles4" media="screen">
+<script language="javascript" type="text/javascript" src="__PUBLIC__/admin/js/jquery-1.8.0.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/admin/js/admin_common.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/admin/js/styleswitch.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/admin/js/highcharts.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/admin/js/exporting.js"></script>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/calendar/jscal2.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/calendar/border-radius.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/calendar/win2k.css">
+<script type="text/javascript" src="__PUBLIC__/js/calendar/calendar.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/calendar/lang/en.js"></script>
+</head>
+<body>
+<div class="subnav">
+    <div class="content-menu ib-a blue line-x">
+    </div>    
+<style type="text/css">
+	html{_overflow-y:scroll}
+</style><div class="pad-lr-10">
+<form name="searchform" action="{:U('Statistical/now_search')}" method="post">
+<table class="search-form" cellspacing="0" width="100%">
+    <tbody>
+		<tr>
+		<td>
+		<div class="explain-col">
+		时间： <input name="starttime" id="starttime" value="{$starttime|date='Y-m-d',###}" size="20" class="date input-text" readonly="" type="text">&nbsp;<script type="text/javascript">
+			Calendar.setup({
+			weekNumbers: true,
+		    inputField : "starttime",
+		    trigger    : "starttime",
+		    dateFormat: "%Y-%m-%d",
+		    showTime: false,
+		    minuteStep: 1,
+		    onSelect   : function() {this.hide();}
+			});
+        </script> 
+		游戏一：   <select name="gid1" id="gid1">
+<option value="0">请选择游戏</option>
+<volist name="list" id="vo">
+<option value="{$vo.gid}" <?php if($vo['gid']==$gid1){echo 'selected';} ?>>{$vo.gamename}</option>
+</volist>
+</select>   
+游戏二：  <select name="gid2" id="gid2">
+<option value="0">请选择游戏</option>
+<volist name="list" id="vo">
+<option value="{$vo.gid}" <?php if($vo['gid']==$gid2){echo 'selected';} ?>>{$vo.gamename}</option>
+</volist>
+</select>
+
+详细：  <select name="xx" id="xx">
+<option value="1"<?php if($xx==1){echo 'selected';} ?>>充值总数</option>
+<option value="2"<?php if($xx==2){echo 'selected';} ?>>自然充值</option>
+<option value="3"<?php if($xx==3){echo 'selected';} ?>>推广充值</option>
+<option value="4"<?php if($xx==4){echo 'selected';} ?>>混服充值</option>
+<option value="5"<?php if($xx==5){echo 'selected';} ?>>注册总人数</option>
+<option value="6"<?php if($xx==6){echo 'selected';} ?>>自然注册人数</option>
+<option value="7"<?php if($xx==7){echo 'selected';} ?>>推广注册人数</option>
+<option value="8"<?php if($xx==8){echo 'selected';} ?>>混服注册人数</option>
+<option value="9"<?php if($xx==9){echo 'selected';} ?>>总充值人数</option>
+<option value="10"<?php if($xx==10){echo 'selected';} ?>>自然人充值人数</option>
+<option value="11"<?php if($xx==11){echo 'selected';} ?>>推广充值人数</option>
+<option value="12"<?php if($xx==12){echo 'selected';} ?>>混服充值人数</option>
+</select>
+
+<input name="search" class="button" value="搜索" type="submit">
+	</div>
+		</td>
+		</tr>
+    </tbody>
+</table>
+</form>
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+</div>
+</body></html>
+
+<script type="text/javascript">
+$(function () {
+		  $('#container').highcharts({
+            title: {
+                text: {$title},
+                x: -20 //center
+            },
+			exporting:{ 
+                     enabled:false 
+                },
+			credits:{
+				enabled:false
+			},
+            subtitle: {
+                text: '',
+                x: -20
+            },
+            xAxis: {
+                categories: ['00:00','01:00','02:00','03:00','04:00','05:00','06:00','07:00','08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00','24:00']
+            },
+            yAxis: {
+                title: {
+                    text: ' '
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                valueSuffix: {$dw}
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            series: [{$context}]
+        });
+});
+</script>

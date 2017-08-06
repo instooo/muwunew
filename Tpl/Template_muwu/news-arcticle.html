@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>深圳市联众贝尔木业有限公司</title>
+	<link rel="stylesheet" type="text/css" href="/misc/muwu/css/style.css">
+	<script src="/misc/muwu/js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/misc/muwu/js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<div class="wrap">
+	<include file="./Tpl/Template_muwu/header.html" />	
+
+	<div class="content">
+		<div class="con_inner clearfix">
+			<div class="details about_our">
+				<h3>{$result.title}</h3>
+				<p class="date">日期：{$result.addtime|date='Y-m-d',###}</p>
+				<div class="real_con">
+					{$result.content}
+				</div>
+			</div>
+		</div>
+	</div>
+	<include file="./Tpl/Template_muwu/footer.html" />
+</div>
+</body>
+</html>

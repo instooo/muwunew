@@ -1,0 +1,22 @@
+            <h3 class="f14"><span class="switchs cu on" title="{$data[0]['parent_module_alias']}"></span>{$data[0]['parent_module_alias']}</h3>
+            <ul>
+            <volist name="data" id="vo">
+                 <li id="_MP{$vo.access_id}" class="sub_menu">
+                	<a href="javascript:_MP('{$vo.access_id}','./index.php?m={$vo.parent_module}&a={$vo.access_name}');" hidefocus="true" style="outline:none;">{$vo.module}</a></li>
+             </volist>
+             </ul>
+			<script type="text/javascript">
+            $(".switchs").each(function(i){
+                var ul = $(this).parent().next();
+                $(this).click(
+                function(){
+                    if(ul.is(':visible')){
+                        ul.hide();
+                        $(this).removeClass('on');
+                            }else{
+                        ul.show();
+                        $(this).addClass('on');
+                    }
+                })
+            });
+            </script>

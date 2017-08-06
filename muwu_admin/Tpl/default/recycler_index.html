@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>半兽人 - 后台管理中心</title>
+<link href="__PUBLIC__/admin/css/reset.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/admin/css/zh-cn-system.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/admin/css/table_form.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/admin/css/style/zh-cn-styles1.css" title="styles1" media="screen">
+<link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/admin/css/style/zh-cn-styles3.css" title="styles3" media="screen">
+<link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/admin/css/style/zh-cn-styles4.css" title="styles4" media="screen">
+<script language="javascript" type="text/javascript" src="__PUBLIC__/admin/js/jquery-1.8.0.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/admin/js/admin_common.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/admin/js/styleswitch.js"></script>
+</head>
+<body>
+<div class="subnav">
+    <div class="content-menu ib-a blue line-x">
+    </div>
+
+<style type="text/css">
+	html{_overflow-y:scroll}
+</style><div class="pad-lr-10">
+
+<form name="searchform" action="{:U('Other/recycler')}" method="post">
+<table class="search-form" cellspacing="0" width="100%">
+    <tbody>
+		<tr>
+		<td>
+		<div class="explain-col">
+			回收类型： <select id="Bisql" name="Bisql">
+            <option value="gift" <?php if($mysql=='gift'){echo 'selected';} ?>>积分礼品</option>
+            <option value="article" <?php if($mysql=='article'){echo 'selected';} ?>>文章</option>
+            <option value="PayView" <?php if($mysql=='PayView'){echo 'selected';} ?>>充值记录</option>
+            <option value="server" <?php if($mysql=='server'){echo 'selected';} ?>>游戏服务器</option>
+            </select>              
+            <input value="{$giftname}" class="input-text" name="giftname" type="text">  
+			<input name="search" class="button" value="搜索" type="submit">
+	</div>
+		</td>
+		</tr>
+    </tbody>
+</table>
+</form>
+
+<form name="myform" action="__URL__/hy_update" method="post">
+<div class="table-list">
+
+<switch name="show_div">
+<case value="1">
+    <table cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th align="left" width="20"><input value="" id="check_box" onclick="selectall('id[]');" type="checkbox"></th>
+                <th align="left"></th>
+                <th align="left">ID</th>
+                <th align="left">标题</th>
+                <th align="center">操作</th>
+            </tr>
+        </thead>
+    <tbody>
+    <volist name="list" id="vo">
+     <tr>
+            <td align="left"><input value="{$vo.re_id}" name="id[]" type="checkbox"></td>
+            <td align="left"></td>
+            <td align="left">{$vo.re_id}</td>
+            <td align="left">{$vo.re_name} 
+            </td>
+            <td align="center">
+                <a href="__URL__/hy_update/id/{$vo.re_id}/bsql/{$vo.bsql}">还原</a> | <a href="__URL__/hy_delete/id/{$vo.re_id}/bsql/{$vo.bsql}">彻底删除</a>
+            </td>
+        </tr>
+    </volist>
+    </tbody>
+    </table>
+    
+</case>
+<case value="2">
+	<table cellspacing="0" width="100%">
+	<thead>
+		<tr>
+			<th align="left" width="20"><input value="" id="check_box" onclick="selectall('id[]');" type="checkbox"></th>
+			<th align="left"></th>
+			<th align="left">序号</th>
+			<th align="left">订单号</th>
+			<th align="left">游戏/服务器</th>
+			<th align="left">充值账户</th>
+			<th align="left">订单类型</th>
+			<th align="left">金额</th>
+			<th align="left">充值时间</th>
+			
+			<th align="left">订单状态</th>
+			<th align="left">游戏充值状态</th>
+			<th align="center">操作</th>
+		</tr>
+	</thead>
+<tbody>
+  <volist name="list" id="vlist">
+ <tr>
+		<td align="left"><input value="{$vlist.id}" name="id[]" type="checkbox"></td>
+		<td align="left"></td>
+		<td align="left">{$vlist.id}</td>
+		<td align="left">{$vlist.orderid}</td>
+		<td align="left">{$vlist.gamename}[{$vlist.servername}]</td>
+		<td align="left">{$vlist.pay_to_account}</td>
+		<td align="left">
+            <switch name="vlist.pay_way_num">
+            <case value="0"><span style="color:#F00;">充值(游戏币)</span></case>
+            <case value="1"><span style="color:#333;">充值(平台币)</span></case>
+            <case value="2"><span style="color:#609;">平台币充值</span></case>
+            <case value="3"><span style="color:#F0F;">混服充值</span></case>
+            </switch>
+        </td>	
+		<td align="left">{$vlist.pay_money}</td>
+		<td align="left">{$vlist.pay_time|date='m/d H:i:s',###}</td>
+	
+	<td> <switch name="vlist.order_status">
+                  <case value="0,0,0">下单未付款</case>
+                  <case value="1,1,1">掉单</case>
+                  <case value="2,2,2"><font color='green'>充值成功</font></case>
+                  <case value="3,3,3">充值成功</case>
+                  </switch></td>
+      <td align="left"> <switch name="vlist.game_status"><case value="0">未充值</case>
+                  <case value="1"><font color='green'>充值成功</font></case>
+                  </switch></td>
+		<td align="center">
+       <a href="__URL__/hy_update/id/{$vlist.id}/bsql/{$vlist.bsql}">还原</a> | <a href="__URL__/hy_delete/id/{$vlist.id}/bsql/{$vlist.bsql}">彻底删除</a>             
+		</td>
+    </tr>
+</volist>
+</tbody>
+</table>
+</case>
+
+<case value="3">
+<table cellspacing="0" width="100%">
+	<thead>
+		<tr>
+			<th align="left" width="20"><input value="" id="check_box" onclick="selectall('id[]');" type="checkbox"></th>
+			<th align="left"></th>
+			<th align="left">区服ID</th>
+			<th align="left">游戏名</th>
+			<th align="left">区服名称</th>
+			<th align="left">区服线路</th>
+			<th align="left">状态</th>
+			<th align="left">开服时间</th>
+			<th align="center">操作</th>
+		</tr>
+	</thead>
+<tbody>
+<volist name="list" id="vo">
+ <tr>
+		<td align="left"><input value="{$vo.sid}" name="id[]" type="checkbox"></td>
+		<td align="left"></td>
+		<td align="left">{$vo.sid}</td>
+		<td align="left">{$vo.gamename}</td>
+		<td align="left">{$vo.servername}</td>
+		<td align="left">{$vo.line}</td>
+		<td align="left"><if condition="$vo.status eq 0">推荐
+<else /> 不推荐
+</if>
+</td>
+		<td align="left">{$vo.start_time|date="y-m-d H:i",###}</td>
+		<td align="center">
+			<a href="__URL__/hy_update/id/{$vo.sid}/bsql/{$vo.bsql}">还原</a> | <a href="__URL__/hy_delete/id/{$vo.sid}/bsql/{$vo.bsql}">彻底删除</a>
+		</td>
+    </tr>
+</volist>
+</tbody>
+</table>
+</case>
+</switch>    
+    <div class="btn"><label for="check_box">全选/取消</label>
+		<input class="button" value="还原"    type="submit">
+			</div>
+
+<div align="right">{$page}</div>
+</div>
+<input type="hidden" id="bsql" name="bsql"  value="{$mysql}"/>
+</form>
+<script type="text/javascript"> 
+</script>
+</div>
+</body></html>

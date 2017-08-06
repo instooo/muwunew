@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>半兽人 - 后台管理中心</title>
+
+<link href="__PUBLIC__/admin/css/reset.css" rel="stylesheet" type="text/css">
+
+<link href="__PUBLIC__/admin/css/zh-cn-system.css" rel="stylesheet" type="text/css">
+
+<link href="__PUBLIC__/admin/css/table_form.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/admin/css/style/zh-cn-styles1.css" title="styles1" media="screen">
+
+<link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/admin/css/style/zh-cn-styles3.css" title="styles3" media="screen">
+
+<link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/admin/css/style/zh-cn-styles4.css" title="styles4" media="screen">
+
+<script language="javascript" type="text/javascript" src="__PUBLIC__/admin/js/jquery.min.js"></script>
+
+<script language="javascript" type="text/javascript" src="__PUBLIC__/admin/js/admin_common.js"></script>
+
+<script language="javascript" type="text/javascript" src="__PUBLIC__/admin/js/styleswitch.js"></script>
+
+</head>
+
+<body>
+
+<style type="text/css">
+
+	html{_overflow-y:scroll}
+
+</style>
+
+<script>
+
+</script>
+
+
+
+<div class="pad-10">
+
+<div class="col-tab">
+
+
+
+<div id="div_setting_1" class="contentList pad-10" style="">
+
+<form action="{:U('Statistical/member_edit')}" method="post" id="myform" enctype="multipart/form-data">
+
+<table width="100%" class="table_form">
+
+  <tbody>					
+
+  <tr>
+
+    <th width="120">用户名</th>
+
+    <td class="y-bg">{$info.username}&nbsp;&nbsp;&nbsp;&nbsp;</td>
+
+  </tr>
+  
+  <tr>
+
+    <th width="120">身份证</th>
+
+    <td class="y-bg">{$info.id_card}&nbsp;&nbsp;&nbsp;&nbsp;</td>
+
+  </tr>
+
+  <tr>
+
+    <th width="120">密码</th>
+
+    <td class="y-bg"><input type="password" class="input-text" value="" name="password" id="password" size="10" >&nbsp;&nbsp;&nbsp;&nbsp;</td>
+
+  </tr>
+  
+  <tr>
+    <th width="120">防沉迷</th>
+    <td class="y-bg">
+    <input name="is_fcm" value="0" type="radio" <eq name="info.is_fcm" value="0">checked</eq>> 通过&nbsp;&nbsp;&nbsp;&nbsp;
+	<input name="is_fcm" value="1" type="radio" <eq name="info.is_fcm" value="1">checked</eq>> 未通过
+    </td>
+  </tr>
+  
+  
+
+  
+
+ <tr>
+
+    <th width="120">邮箱</th>
+
+    <td class="y-bg"><input type="text" class="input-text" value="{$info.email}" name="email" id="email" size="25" >&nbsp;&nbsp;&nbsp;&nbsp;</td>
+
+  </tr>
+
+  
+
+   <tr>
+
+    <th width="120">昵称</th>
+
+    <td class="y-bg"><input type="text" class="input-text" value="{$info.nickname}" name="nickname" id="nickname" size="20" >&nbsp;&nbsp;&nbsp;&nbsp;</td>
+
+  </tr>
+  
+  <tr>
+    <th width="120">注册时间</th>
+    <td class="y-bg">{$info1.register_time|date="Y-m-d H:i:s",###}&nbsp;
+	</td>
+  </tr>
+  
+  <tr>
+    <th width="120">注册IP</th>
+    <td class="y-bg">{$info1.register_ip}&nbsp;({$get_info_ip})&nbsp;
+	</td>
+  </tr>
+  
+  <tr>
+    <th width="120">最后登录时间</th>
+    <td class="y-bg">{$info1.lastlogin_time|date="Y-m-d H:i:s",###}&nbsp;
+	</td>
+  </tr>
+  
+  
+    <tr>
+    <th width="120" align="left" >登录游戏记录</th>
+    <td class="y-bg">
+    <div style="overflow-y:scroll; height: 110px; width: 65%;">
+    	<table width="100%" class="table_form">
+            <tr>
+            	<td width="8%">序号</th>	
+                <td width="18%">游戏</td>
+                <td width="20%">服务器</td>
+                <td width="18%">角色ID</td>
+                <td width="36%">角色级别</td>
+            </tr>
+        	<volist name="info2" id="vo">
+        	<tr>
+            	<td>{$i}</td>
+            	<td>{$vo.gamename}</td>
+            	<td>{$vo.servername}</td>
+                <td>{$vo.role}</td>
+                <td>{$vo.level}</td>
+            </tr>
+            </volist>
+        </table>
+    </div>
+	</td>
+  </tr>
+  
+  <if condition="($qxuser eq admin)">
+   <tr>
+    <th width="120" align="left">充值记录</th>
+    <td class="y-bg">
+    <div style="overflow-y:scroll; height: 110px; width: 65%;">
+    	<table width="100%" class="table_form">
+            <tr>
+            	<td width="8%">序号</th>	
+                <td width="18%">充值时间</td>
+                <td width="20%">充值金额</td>
+                <td width="18%">充值状态</td>
+              </tr>
+        	<volist name="info3" id="vo">
+        	<tr>
+            	<td>{$i}</td>
+            	<td>{$vo.success_time|date="Y-m-d H:i:s",###}</td>
+            	<td>{$vo.pay_really_money}</td>
+                <td>充值成功</td>
+            </tr>
+            </volist>
+        </table>
+    </div>
+	</td>
+  </tr>
+  </if>
+  
+
+   <tr>
+
+    <th width="120">是否锁定</th>
+
+    <td class="y-bg">
+
+    <input name="user_status" value="1" type="radio" <eq name="info.user_status" value="1">checked</eq>>是&nbsp;&nbsp;&nbsp;&nbsp;
+
+	<input name="user_status" value="0" type="radio" <eq name="info.user_status" value="0">checked</eq>> 否
+
+  &nbsp;&nbsp;&nbsp;&nbsp;</td>
+
+  </tr>
+
+
+
+     
+
+</tbody></table>
+
+</div>
+
+
+
+<div class="bk15"></div>
+
+<input value="{$uid}" name="uid" type="hidden">
+
+<input value="{$info.username}" name="username" type="hidden">
+
+<input name="dosubmit" type="submit" value="提交" class="button">
+
+</form>
+
+</div>
+
+
+
+
+
+
+
+</body></html>

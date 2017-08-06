@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+
+
+<html>
+
+
+
+<head>
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+
+<title>半兽人 - 后台管理中心</title>
+
+
+
+<link href="__PUBLIC__/admin/css/reset.css" rel="stylesheet" type="text/css">
+
+
+
+<link href="__PUBLIC__/admin/css/zh-cn-system.css" rel="stylesheet" type="text/css">
+
+
+
+<link href="__PUBLIC__/admin/css/table_form.css" rel="stylesheet" type="text/css">
+
+
+
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/admin/css/style/zh-cn-styles1.css" title="styles1" media="screen">
+
+
+
+<link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/admin/css/style/zh-cn-styles3.css" title="styles3" media="screen">
+
+
+
+<link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/admin/css/style/zh-cn-styles4.css" title="styles4" media="screen">
+
+
+
+<script language="javascript" type="text/javascript" src="__PUBLIC__/admin/js/jquery-1.8.0.min.js"></script>
+
+
+
+<script language="javascript" type="text/javascript" src="__PUBLIC__/admin/js/admin_common.js"></script>
+
+
+
+<script language="javascript" type="text/javascript" src="__PUBLIC__/admin/js/styleswitch.js"></script>
+
+
+
+</head>
+
+
+
+<body>
+
+
+
+<div class="subnav">
+
+
+
+    <div class="content-menu ib-a blue line-x">
+
+
+
+    </div>
+
+
+
+<style type="text/css">
+
+
+
+	html{_overflow-y:scroll}
+
+
+
+</style><div class="pad-lr-10">
+
+
+
+
+
+
+
+
+
+
+
+<form name="myform" action="__URL__/link_delete" method="post">
+
+
+
+<div class="table-list">
+
+
+
+<table cellspacing="0" width="100%">
+
+
+
+	<thead>
+
+
+
+		<tr>
+
+
+
+			
+
+
+
+			<th align="left">ID</th>
+
+
+
+			<th align="left">站点名称</th>
+
+
+
+			<th align="left">站点域名</th>
+
+
+
+			<th align="left">状态</th>
+
+
+
+			<th align="center">管理操作</th>
+
+
+
+		</tr>
+
+
+
+	</thead>
+
+
+
+<tbody>
+
+
+
+<volist name="list" id="vo">
+
+
+
+ <tr>
+
+
+
+
+
+
+
+		<td align="left">{$vo.id}</td>
+
+
+
+		<td align="left">{$vo.sitename}</td>
+
+
+
+		<td align="left">{$vo.domain}</td>
+
+
+
+		<td align="left">
+
+
+
+		
+
+
+
+<if condition="$vo.open eq 0 "> 启动
+
+
+
+<else /> 关闭
+
+
+
+</if>
+
+
+
+
+
+
+
+</td>
+
+
+
+		<td align="center">
+			<a href="__URL__/web_edit/web_id/{$vo.id}">修改</a>
+            <if condition="$Think.session.group =='超级管理员' ">
+            
+             <if condition="$vo.sh_pd !='1' ">| <a onClick="JavaScript:return confirm('删除的站点必须无文章栏目,且无文章！确定？')" href="__URL__/web_delete/web_id/{$vo.id}">删除 </a><else />| <span style="color:#CCC;">删除</span></if>
+            
+            
+            </if> 
+           
+		</td>
+
+
+		
+
+    </tr>
+
+
+
+</volist>
+
+
+
+</tbody>
+
+
+
+</table>
+
+
+
+   
+
+
+
+
+
+
+
+<div align="right">{$page}</div>
+
+
+
+</div>
+
+
+
+</form>
+
+
+
+<script type="text/javascript"> 
+
+
+
+
+
+
+
+function confirm_delete(){
+
+
+
+	if(confirm('确认删除吗？')) $('#myform').submit();
+
+
+
+}
+
+
+
+
+
+
+
+</script>
+
+
+
+</div>
+
+
+
+</body></html>

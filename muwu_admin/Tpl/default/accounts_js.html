@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>半兽人 - 后台管理中心</title>
+<link href="__PUBLIC__/admin/css/reset.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/admin/css/zh-cn-system.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/admin/css/table_form.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/admin/css/style/zh-cn-styles1.css" title="styles1" media="screen">
+<link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/admin/css/style/zh-cn-styles3.css" title="styles3" media="screen">
+<link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/admin/css/style/zh-cn-styles4.css" title="styles4" media="screen">
+<script language="javascript" type="text/javascript" src="__PUBLIC__/admin/js/jquery-1.8.0.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/admin/js/admin_common.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/admin/js/styleswitch.js"></script>
+</head>
+<body>
+<div class="subnav">
+    <div class="content-menu ib-a blue line-x">
+    </div>
+<style type="text/css">
+	html{_overflow-y:scroll}
+</style><div class="pad-lr-10">
+<form name="searchform" action="{:U('Channel/accounts_js')}" method="post">
+<table class="search-form" cellspacing="0" width="100%">
+    <tbody>
+		<tr>
+		<td>
+		<div class="explain-col">
+		日期： 
+            <link rel="stylesheet" type="text/css" href="__PUBLIC__/js/calendar/jscal2.css"/>
+			<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/calendar/border-radius.css"/>
+			<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/calendar/win2k.css"/>
+			<script type="text/javascript" src="__PUBLIC__/js/calendar/calendar.js"></script>
+			<script type="text/javascript" src="__PUBLIC__/js/calendar/lang/en.js"></script>
+			<input type="text" name="start" id="start" value="{$starttime|date="Y-m-d",###}" size="10" class="date" readonly>&nbsp;<script type="text/javascript">
+			Calendar.setup({
+			weekNumbers: true,
+		    inputField : "start",
+		    trigger    : "start",
+		    dateFormat: "%Y-%m-%d",
+		    showTime: false,
+		    minuteStep: 1,
+		    onSelect   : function() {this.hide();}
+			});
+        </script> 到   <input type="text" name="endtime" id="endtime" value="{$endtime|date="Y-m-d",###}" size="10" class="date" readonly>&nbsp;<script type="text/javascript">
+			Calendar.setup({
+			weekNumbers: true,
+		    inputField : "endtime",
+		    trigger    : "endtime",
+		    dateFormat: "%Y-%m-%d",
+		    showTime: false,
+		    minuteStep: 1,
+		    onSelect   : function() {this.hide();}
+			});
+        </script>
+        所属公会：<select name="subsign" id="subsign">
+<option value="0">请选择一级公会</option>
+<volist name="list_info" id="vo">
+<option value="{$vo.uid}" <?php if($vo['uid'] == $subsign){echo 'selected';} ?>>{$vo.username}</option>
+</volist></select>
+状态：  <select name="status" id="status">
+<option value="">请选择状态</option>
+<option value="1" <?php if($status=='1'){echo 'selected';} ?>>结算</option>
+<option value="0" <?php if($status=='0'){echo 'selected';} ?>>未结算</option>
+</select>
+<input name="search" class="button" value="查询" type="submit">
+	</div>
+		</td>
+		</tr>
+    </tbody>
+</table>
+</form>
+
+<form name="myform" action="__URL__/accounts_pl" method="get">
+<div class="table-list">
+<table cellspacing="0" width="100%">
+	<thead>
+		<tr>
+	<th align="left" width="20"><input value="" id="check_box" onclick="selectall('id[]');" type="checkbox"></th>
+			<th align="left"></th>
+			<th align="left">ID</th>
+			<th align="left">日期</th>
+            <th align="left">结算日期</th>
+			<th align="left">推广渠道</th>
+			<th align="left">金额(元)</th>
+			<th align="left">充值游戏</th>
+			<th align="left">状态</th>
+			<th align="center">操作</th>
+		</tr>
+	</thead>
+<tbody>
+<volist name="list" id="vo">
+ <tr>
+ <td align="left"><input value="{$vo.id}" name="id[]" type="checkbox"></td>
+		<td align="left"></td>
+		<td align="left">{$vo.id}</td>
+		<td align="left">{$vo.spend_time|date="Y-m-d",###}</td>
+        <td align="left"><!--{$vo.js_date|date="Y-m-d",###}-->
+        <gt name="vo.js_date" value="0">{$vo.js_date|date="Y-m-d",###}</gt>
+        
+        </td>
+		<td align="left">{$vo.username}</td>	
+		<td align="left">{$vo.money}</td>
+		<td align="left">{$vo.gamename}</td>
+		<td align="left"><if condition="$vo.status eq 0 ">未结算
+
+<else /> 已经算
+</if>
+</td>
+	
+		<td align="center">
+        <if condition="$vo.status eq 0 ">
+        <a onClick="return js_chk({$vo.id})">结算</a>
+        <else /> <span style="color:#999;"> 已经算 </span>
+        </if>
+        
+        </td> 
+    </tr>
+    
+   
+</volist>
+ <tr>
+ <td colspan=4>充值金额： {$money} 元</td> 
+ 
+ <td colspan=3>分红金额：{$real_money} 元</td></tr>
+</tbody>
+</table>
+     <div class="btn"><label for="check_box">全选/取消</label>
+		<input class="button" value="批量结算"    type="submit">
+			</div>
+
+<div align="right">{$page}</div>
+</div>
+</form>
+<script type="text/javascript"> 
+
+function confirm_delete(){
+	if(confirm('确认删除吗？')) $('#myform').submit();
+}
+
+function js_chk(val)
+{
+	$.post('__URL__/ajax_cpschk',{'val':val},
+			function(data){
+			if(data.status == 0)
+			{
+				if(confirm("分成比例为零，是否结算?"))
+				{
+					window.location.href="__URL__/accounts_pl/id/"+val;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			else
+			{
+				if(confirm("分成比例为"+data.info+"%，是否结算?"))
+				{
+					window.location.href="__URL__/accounts_pl/id/"+val;
+				}
+				else
+				{
+					return false;
+				}
+			}			
+    },'json');
+}
+
+</script>
+</div>
+</body></html>

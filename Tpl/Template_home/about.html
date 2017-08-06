@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>
+      {$result.title}--东莞市后岩金属材料有限公司
+    </title>
+    <meta name="Keywords" content="" />
+    <meta name="Description" content=""/>
+    <script type="text/javascript" src="/misc/js/jquery.js"></script>
+    <link rel="stylesheet" type="text/css" href="/misc/css/css.css" />
+    <link rel="stylesheet" href="/misc/css/screen.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="/misc/css/lightbox.css" type="text/css" media="screen"/>
+  </head>
+  
+  <body>
+   <include file="./Tpl/Template_home/header.html" />
+    <div class="ban" style="background:url(/misc/images/about_ban.jpg) no-repeat center">
+    </div>
+    <div class="page-main">
+      <div class="left">
+        <div class="title">
+          关于我们
+        </div>
+        <ul>
+		<volist name='cate' id='vo'>
+          <li>
+            <a href="/about/index/id/{$vo.typeid}" class="cur">
+              {$vo.typename}
+            </a>
+          </li>
+       </volist>
+        </ul>
+        <div class="l_con">
+          <a href="/contact/">
+            <img src="/misc/images/l_con.jpg" />
+          </a>
+        </div>
+      </div>
+      <!--left-->
+      <div>
+      </div>
+      <!--right-->
+      <div class="right">
+        <div class="location">
+          你的位置 ： 首页 > 关于我们 >         
+        </div>
+        <div class="content">
+			{$list.0.content}
+          <!---->
+        </div>
+        <div class="clear">
+        </div>
+      </div>
+      <div class="clear">
+      </div>
+    </div>
+    <!--脚部开始-->
+   <include file="./Tpl/Template_home/footer1.html" />
+   <include file="./Tpl/Template_home/common_left.html" />
+ </body>
+</HTML>

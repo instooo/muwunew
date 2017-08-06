@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=GBK" />
+    <title>正在进入支付页面</title>
+</head>
+<body onLoad="document.yeepay.submit();">
+    <br />
+    <center>正在进入支付页面，请不要关闭和刷新浏览器</center>
+    <form name='yeepay' action='http://pay.tianxiafu.cn/txf_xezf/DirectFillAction' method='post'>
+        <input type='hidden' name='merchant_no' value='{$data.merchant_no}'>
+        <input type='hidden' name='product_id' value='{$data.prod_id}'>
+        <input type='hidden' name='charge_amt' value='{$data.charge_amt}'>
+        <input type='hidden' name='num' value='{$data.num}'>
+        <input type='hidden' name='user_account' value='{$data.user_account}'>
+        <input type='hidden' name='user_ip' value='{$data.user_ip}'>
+        <input type='hidden' name='ret_type' value='{$data.ret_type}'>
+        <input type='hidden' name='sign' value='{$data.sign}'>
+        <input type='hidden' name='order_id' value='{$data.order}'>
+    </form>
+</body>
+</html>

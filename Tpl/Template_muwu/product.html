@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>首页-深圳市联众贝尔木业有限公司</title>
+	<link rel="stylesheet" type="text/css" href="/misc/muwu/css/style.css">
+	<script src="/misc/muwu/js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/misc/muwu/js/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<div class="wrap">
+	<include file="./Tpl/Template_muwu/header.html" />	
+	
+	<div class="img_tit"><a href="" target="_blank"><img src="/misc/muwu/images/t3.jpg" /></a></div>
+
+	<div class="content">
+		<div class="con_inner clearfix">
+			<div class="con_tit">
+				<h3>产品中心<p>PRODUCT CENTER</p></h3>
+			</div>
+			<div class="con_nav fl">
+				<ul>
+					<li><a href="/product/index">全部</a></li>
+					<volist name='list' id='vo'>
+					<li <if condition="$vo['typeid'] eq $result['typeid']">class="on"</if>><a href="/product/index/id/{$vo.typeid}">{$vo.typename}</a></li>
+					</volist>
+				</ul>
+			</div>
+			<div class="con_right fl">
+				<div class="product">
+				<volist name="case" id="vo">       
+				<a href="/product/detail/id/{$vo.aid}" target="_blank"  <if condition="($key+1)%3 eq 0">class="margin0"</if>>
+						<img src="/{$vo.img_url}" width="310" height="174"/>
+						<div class="pro_info">
+							<h4><i></i><span>{$vo.title}</span></h4>
+							<p>{$vo.description}</p>
+						</div>
+					</a>
+				</volist>						
+				</div>
+			</div>
+			<div class="page">
+				{$page}
+			</div>
+		</div>
+	</div>
+	<include file="./Tpl/Template_muwu/footer.html" />	
+</div>
+</body>
+</html>

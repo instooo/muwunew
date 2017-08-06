@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>发布文章</title>
+<meta name="Generator" content="EditPlus">
+<meta name="Author" content="">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<link href="__PUBLIC__/admin/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+<link href="__PUBLIC__/admin/css/style.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="__PUBLIC__/admin/js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/dialog/jquery.artDialog.js?skin=default"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/jquery.colorpicker.js"></script>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/calendar/jscal2.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/calendar/border-radius.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/calendar/win2k.css">
+<script type="text/javascript" src="__PUBLIC__/js/calendar/calendar.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/calendar/lang/en.js"></script>
+
+<link href="__PUBLIC__/admin/css/reset.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/admin/css/zh-cn-system.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/admin/css/table_form.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/admin/css/Admin_css.css" type=text/css rel=stylesheet>
+<script src="__PUBLIC__/admin/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/ueditor/editor_config.js"></script>
+<script type="text/javascript" src="__PUBLIC__/ueditor/editor_all_min.js"></script> 
+<link rel="stylesheet" href="__PUBLIC__/ueditor/themes/default/css/ueditor.css">
+<style type="text/css">
+input[type="text"]{height: 18px;}
+</style>
+<script>
+$(document).ready(
+   function(){	   
+	$(".send").click(function(){
+	var $title = $("#title").val();
+	var $type = $("#typeid").val();
+	if($title==""||$type=="")
+	{
+	   $.dialog({
+	   lock:true,
+	   icon:'error',
+	   content:'提交失败!至少要填写文章标题,所属栏目,文章内容!',
+	   title:"提示信息",
+	   ok:true,
+	   });
+
+	 return false;
+	}
+	});
+}
+)
+
+function round()
+{	
+	document.getElementById("Hits").value=Math.ceil(Math.random()*(1000-1)+1);
+}
+
+function chk()
+{
+	if(document.getElementById("title").value==""){
+		alert("标题不能为空!");
+		document.getElementById("title").focus();
+		return false;
+	}
+	if(document.getElementById("typeid").value==""){
+		alert("栏目不能为空!");
+		document.getElementById("typeid").focus();
+		return false;
+	}	
+	$("#webconfig_id").attr('disabled',false);
+	return true;
+}
+</script>
+
+
+ </head>
+ <body>
+ <form action="__URL__/editcase"  name="myform" method="post" id="myform" enctype="multipart/form-data" onSubmit="return chk();">
+<table width="98%" border="0.2" class="table table-condensed table-striped">
+<if condition="$group_role==1">
+<tr>
+<td>站点</td>
+<td colspan="3">
+<select id="webconfig_id" name="webconfig_id" disabled="disabled">
+{$ma_bq}
+</select>
+</td>
+</tr>
+<else />
+</if> 
+<tr>
+	<input type="hidden" name="aid" value="{$list.aid}" />
+    <input type="hidden" name="webid" name="weiid" value="{$list.webconfig_id}"/>
+	<td>案例名称:</td>
+	<td>
+	<input type="text" name="title" id="title" size="20" value="{$list.title}" />
+	</td>
+	
+</tr>
+<tr>
+<td>简略标题:</td>
+<td><input name="title_jl" type="text" id="title_jl" size="14" maxlength="60"  value="{$list.title_jl}"></td>
+</tr>
+<tr>
+<td>作 者:</td>
+<td><input name="author" type="text" id="Author" value="" size="20" maxlength="200"></td>
+</tr>
+
+<tr>
+<td>所属栏目:</td>
+<td> <select id="typeid" name="typeid">
+<option value="" >请选择分类</option>
+<volist name="option" id="v">
+	<if condition="$v.ispage eq 2 ">
+		<option value="{$v.typeid}" <if condition="$v.typeid eq $amid ">selected<else /></if> >{$v.cname}</option>
+	<else/>
+		<optgroup label="{$v.cname}"></optgroup>
+	</if>
+</volist>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>权 重:</td>
+<td><input name="weight"  type="text" id="weight"  size="14" maxlength="60"  value="{$list.weight}"></td>
+</tr>
+<tr>
+<td>摘 要:</td>
+<td><textarea name="description" id="note" >{$list.description}</textarea></td>
+</tr>
+<tr>
+<td>案例图片:</td>
+<td><input type="file" name="uploads[]"  multiple/>
+<input type="hidden" name="old_art" value="{$list.article_img_json}"/>
+</td>
+</tr>
+</table>
+<div style="text-align:left; margin-left:30px;">
+<volist name='list.article_img' id='vo'>
+<img src="/{$vo}" width="60" height="60" style="margin:5px;"/>
+</volist>
+</div>
+<h1 style="text-align:left;margin-top:10px;">案例背景:</h1>
+<div><textarea name="contentbj" id="editor_bj">{$list.contentbj}</textarea></div>
+<h1 style="text-align:left; margin-top:10px;">方案详情:</h1>
+<div><textarea name="contentxq" id="editor_xq">{$list.contentxq}</textarea></div>
+<input type="submit" class="send" value="发布"/> <input type="reset" value="重置" />
+</form>
+<script type="text/javascript">
+    var editor = new UE.ui.Editor({initialContent:''});
+    editor.render("editor_bj");
+	var editora = new UE.ui.Editor({initialContent:''});
+	editora.render("editor_xq");
+</script> 
+ </body>
+</html>
+
+ 
+

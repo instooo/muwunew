@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form name="searchform" action="{:U('Channel/cpsmember_list')}" method="post">
+<table class="search-form" cellspacing="0" width="100%">
+    <tbody>
+		<tr>
+		<td>
+		<div class="explain-col">
+			用户名：  <input value="{$username}" class="input-text" name="username" type="text">  
+状态：  <select name="user_status" id="user_status">
+<option value="">请选择状态</option>
+<option value="0" <?php if($user_status=='0'){echo 'selected';} ?>>正常</option>
+<option value="1" <?php if($user_status=='1'){echo 'selected';} ?>>锁住</option>
+</select>
+所属公会：<select name="subsign" id="subsign">
+<option value="">请选择一级公会</option>
+<volist name="list_info" id="vo">
+<option value="{$vo.uid}" <?php if($vo['uid'] == $subsign){echo 'selected';} ?>>{$vo.username}</option>
+</volist></select>
+<input name="search" class="button" value="搜索" type="submit">
+	</div>
+		</td>
+		</tr>
+    </tbody>
+</table>
+</form>
+</body>
+</html>

@@ -14,6 +14,8 @@ class CaseAction extends CommonAction{
 		parent::__construct();
 		//直接设置手游的站点id 
 		$this->config_list = 110;
+		$this->assign ( 'pos', 'case' );
+		$this->assign ( 'smalltitle', '案例中心' );
 	}
 	
 	//列表页

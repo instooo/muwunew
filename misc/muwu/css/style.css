@@ -83,19 +83,19 @@ textarea{resize:none;}
 .apartent_inner{height: 705px;}
 .apartent_inner h3{padding-top: 80px; margin-bottom: 75px; color: #4b4b4b; font-size: 24px; text-align: center;}
 .apartent_inner h3 p{color: #929292; font-size: 14px; margin-top: 5px;}
-.apart_scroll{width: 531px; float: left; position: relative;}
-.apart_scroll .apart_w{position: relative; width: 529px; height: 355px; border: 1px solid #bfbfbf; overflow: hidden;}
-.apart_scroll .apart_w ul{position: absolute; width: 529px; height: 355px; overflow: hidden;}
+.apart_scroll{width: 1300px; float: left; position: relative;}
+.apart_scroll .apart_w{position: relative; width: 1200px; height: 355px; overflow: hidden;}
+.apart_scroll .apart_w ul{position: absolute; width: 1200px; height: 355px; overflow: hidden;}
 .apart_scroll .apart_w li{float: left;}
-.apart_scroll .apart_w li img{width: 529px; height: 355px;}
-.apart_scroll .apart_num{height: 35px; line-height: 35px; margin-top: 36px; color: #cfcfcf; font-size: 20px; text-align: center; letter-spacing: 3px}
+.apart_scroll .apart_w li img{float: left;width: 529px; height: 355px;border: 1px solid #bfbfbf;}
+.apart_scroll .apart_num{height: 35px; line-height: 35px; color: #cfcfcf; font-size: 20px; text-align: center; letter-spacing: 3px; width:200px!important; position:relative; margin:36px auto;}
 .apart_scroll .apart_num span{font-size: 30px; color: #4b4b4b;}
 .apart_scroll .apart_num i{font-size: 30px;}
 .apart_scroll .prev{display: block; position: absolute; left: 60px; bottom: 2px; width: 13px; height: 29px; background: url(../images/bg/bg3.png) 0 0 no-repeat; cursor: pointer;}
 .apart_scroll .next{display: block; position: absolute; right: 60px; bottom: 2px; width: 13px; height: 29px; background: url(../images/bg/bg3.png) -46px 0 no-repeat; cursor: pointer;}
 .apart_scroll .prev:hover{background-position: -21px 0;}
 .apart_scroll .next:hover{background-position: -67px 0;}
-.apart_instro{float: left; margin-left: 58px;}
+.apart_instro{float: left; margin-left: 58px; width:611px}
 .apart_instro p{color: #4b4b4b; font-size: 14px; margin-bottom: 25px;}
 .apart_instro p span{color: #4b4b4b; font-weight: bold;}
 .apart_instro .apart_des{color: #929292}

@@ -14,6 +14,8 @@ class ContactAction extends CommonAction{
 		parent::__construct();
 		//直接设置手游的站点id 
 		$this->config_list = 110;
+		$this->assign ( 'pos', 'contact' );
+		$this->assign ( 'smalltitle', '联系我们' );
 	}
 	
 	//列表页

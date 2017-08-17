@@ -14,6 +14,8 @@ class NewsAction extends CommonAction{
 		parent::__construct();
 		//直接设置手游的站点id 
 		$this->config_list = 110;
+		$this->assign ( 'pos', 'news' );
+		$this->assign ( 'smalltitle', '新闻中心' );
 	}
 	
 	//列表页

@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>首页-深圳市联众贝尔木业有限公司</title>
+	<title>{$smalltitle}-深圳市联众贝尔木业有限公司</title>
 	<link rel="stylesheet" type="text/css" href="/misc/muwu/css/style.css">
 	<script src="/misc/muwu/js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/misc/muwu/js/main.js" type="text/javascript" charset="utf-8"></script>
@@ -12,9 +12,9 @@
 	<include file="./Tpl/Template_muwu/header.html" />	
 	<div class="banner">
 		<ul>
-			<li><a href="" target="_blank"><img src="/misc/muwu/images/b1.jpg" /></a></li>
-			<li><a href="" target="_blank"><img src="/misc/muwu/images/b2.jpg" /></a></li>
-			<li><a href="" target="_blank"><img src="/misc/muwu/images/b3.jpg" /></a></li>
+			<li><a href="#" target="_blank"><img src="/misc/muwu/images/b1.jpg" /></a></li>
+			<li><a href="#" target="_blank"><img src="/misc/muwu/images/b2.jpg" /></a></li>
+			<li><a href="#" target="_blank"><img src="/misc/muwu/images/b3.jpg" /></a></li>
 		</ul>
 		<div class="b_num">
 			<span class="on"></span>
@@ -79,7 +79,7 @@
 				</li>
 			</volist>			
 			</ul>
-			<a href="" target="_blank" class="c_more"></a>
+			<a href="/product/" target="_blank" class="c_more"></a>
 		</div>
 	</div>
 	<div class="apartent">
@@ -88,20 +88,18 @@
 			<div class="apart_scroll">
 				<div class="apart_w">
 					<ul>
-						<li><a href="" target="_blank"><img src="/misc/muwu/images/img2.jpg" /></a></li>
-						<li><a href="" target="_blank"><img src="/misc/muwu/images/img2.jpg" /></a></li>
-						<li><a href="" target="_blank"><img src="/misc/muwu/images/img2.jpg" /></a></li>
+					<volist name='huxing' id='vo'>
+						<li>						
+						<a href="/product/detail/id/{$vo.aid}" target="_blank"><img src="/{$vo.img_url}" /></a>
+						<div class="apart_instro">
+							{$vo.contentxq}
+							<a href="" class="a_more"></a>
+						</div>						
+						</li>
+					</volist>			
 					</ul>
 				</div>
-			</div>
-			<div class="apart_instro">
-				<p><span>户型说明：</span>3室1餐厅4卫2厨</p>
-				<p><span>建筑面积：</span>256.84㎡</p>
-				<p><span>墙体规格：</span>110mm/方木</p>
-				<p>实际面积按最终图纸核算</p>
-				<p class="apart_des">酒店别墅，室内设施齐全，豪华卧室，配备独立卫生间，惬意生活了然于胸。</p>
-				<a href="" class="a_more"></a>
-			</div>
+			</div>			
 		</div>
 	</div>
 	<div class="news">
@@ -116,23 +114,23 @@
 			</a>		
 			</volist>
 			
-			<a href="" target="_blank" class="n_more"></a>
+			<a href="/news/" target="_blank" class="n_more"></a>
 		</div>
 	</div>	
 	<div class="cooperate">
 		<div class="coo_inner">
 			<h3>合作伙伴<p>Cooperative partner</p></h3>
 			<ul>
-				<li><a href="" target="_blank"><img src="/misc/muwu/images/c1.jpg" /></a></li>
-				<li><a href="" target="_blank"><img src="/misc/muwu/images/c2.jpg" /></a></li>
-				<li><a href="" target="_blank"><img src="/misc/muwu/images/c3.jpg" /></a></li>
-				<li><a href="" target="_blank"><img src="/misc/muwu/images/c4.jpg" /></a></li>
-				<li><a href="" target="_blank"><img src="/misc/muwu/images/c5.jpg" /></a></li>
-				<li><a href="" target="_blank"><img src="/misc/muwu/images/c6.jpg" /></a></li>
-				<li><a href="" target="_blank"><img src="/misc/muwu/images/c7.jpg" /></a></li>
-				<li><a href="" target="_blank"><img src="/misc/muwu/images/c8.jpg" /></a></li>
-				<li><a href="" target="_blank"><img src="/misc/muwu/images/c9.jpg" /></a></li>
-				<li><a href="" target="_blank"><img src="/misc/muwu/images/c10.jpg" /></a></li>
+				<li><a href="#"><img src="/misc/muwu/images/c1.jpg" /></a></li>
+				<li><a href="#"><img src="/misc/muwu/images/c2.jpg" /></a></li>
+				<li><a href="#"><img src="/misc/muwu/images/c3.jpg" /></a></li>
+				<li><a href="#"><img src="/misc/muwu/images/c4.jpg" /></a></li>
+				<li><a href="#"><img src="/misc/muwu/images/c5.jpg" /></a></li>
+				<li><a href="#"><img src="/misc/muwu/images/c6.jpg" /></a></li>
+				<li><a href="#"><img src="/misc/muwu/images/c7.jpg" /></a></li>
+				<li><a href="#"><img src="/misc/muwu/images/c8.jpg" /></a></li>
+				<li><a href="#"><img src="/misc/muwu/images/c9.jpg" /></a></li>
+				<li><a href="#"><img src="/misc/muwu/images/c10.jpg" /></a></li>
 			</ul>
 		</div>
 	</div>

@@ -14,6 +14,8 @@ class IndexAction extends CommonAction{
 		parent::__construct();
 		//直接设置手游的站点id 
 		$this->config_list = 110;
+		$this->assign ( 'pos', 'index' );
+		$this->assign ( 'smalltitle', '首页' );
 	}
 	
 	public function index() {
@@ -24,8 +26,13 @@ class IndexAction extends CommonAction{
 		$typeid = array(21,17);
 		$case = $this->case_list($typeid,6);	
 		
+		//案例
+		$typeid = array(18);
+		$huxing = $this->case_list($typeid,6);	
+		
 		$this->assign ( 'news', $news );
 		$this->assign ( 'case', $case );
+		$this->assign ( 'huxing', $huxing );
 		$this->display ( TMPL_PATH . C ( "DEFAULT_GROUP" ) . '/index.html' );
 	}	
 }

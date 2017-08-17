@@ -14,6 +14,8 @@ class ProductAction extends CommonAction{
 		parent::__construct();
 		//直接设置手游的站点id 
 		$this->config_list = 110;
+		$this->assign ( 'pos', 'product' );
+		$this->assign ( 'smalltitle', '产品中心' );
 	}
 	
 	//列表页

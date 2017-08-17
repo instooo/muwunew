@@ -6,6 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="/misc/muwu/css/style.css">
 	<script src="/misc/muwu/js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/misc/muwu/js/main.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=O1Qa604znmHRpe6hpwG2tkwUWpxviddk"></script>
 </head>
 <body>
 <div class="wrap">
@@ -15,14 +16,13 @@
 		<div class="con_inner clearfix">
 			<div class="my_address">
 				<div class="crumb">您的位置：<a href="">首页</a>><a href="">联系我们</a></div>
-				<div class="add_position">
-					<img src="/misc/muwu/images/address.jpg" />
+				<div class="add_position" id="allmap" style=" height:500px; width:100%;">					
 				</div>
 				<div class="my_address_link">
 					<h4>联系我们</h4>
-					<p>公司名称：深圳市联众贝尔木来有限公司</p>
-					<p>公司地址：广东省深圳市宝安区大道666号</p>
-					<p>服务热线：<span>400-688-5037</span></p>
+					<p>公司名称：深圳市联众贝尔木业有限公司</p>
+					<p>公司地址：深圳市宝安区松岗街道塘下涌鑫永盛工业园三栋</p>
+					<p>服务热线：<span>400-068-1118</span></p>
 				</div>
 			</div>
 		</div>
@@ -32,3 +32,13 @@
 </div>
 </body>
 </html>
+
+<script type="text/javascript">
+//
+	// 百度地图API功能
+	var map = new BMap.Map("allmap");    // 创建Map实例
+	map.centerAndZoom(new BMap.Point(113.855275,22.81641), 18);  // 初始化地图,设置中心点坐标和地图级别
+	map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
+	map.setCurrentCity("深圳");          // 设置地图显示的城市 此项是必须设置的
+	map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+</script>

@@ -6,6 +6,8 @@
 	<link rel="stylesheet" type="text/css" href="/misc/muwu/css/style.css">
 	<script src="/misc/muwu/js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/misc/muwu/js/main.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" type="text/css" href="/misc/muwu/css/viewer.min.css">
+	<script src="/misc/muwu/js/viewer.min.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
 <div class="wrap">
@@ -30,7 +32,7 @@
 	</div>
 
 	<div class="case_img case">
-		<div class="case_img_inner clearfix">
+		<div class="case_img_inner clearfix" id="product_img">
 			<h3>案例图片<p>CASE PICTURES</p></h3>
 			<volist name="result['article_imgar']" id='vo'>
 			<img src="/{$vo}" onclick="serFocus({$key+1})"/>			
@@ -38,7 +40,7 @@
 		</div>
 		<div class="servicesPop" style="display:none;">
 			<div id="serFocus">	
-				<div class="fr" style="position:relative;"><a href="javascript:void(0)" class="close" onclick="closeSerPop()">&nbsp;</a></div>	
+				<div class="fr" style="position:relative;"><a href="javascript:void(0)" class="close">&nbsp;</a></div>	
 				<volist name="result['article_imgar']" id='vo'>
 				<div class="box" id="flash{$key}">
 					<img src="/{$vo}" width="400" height="273" />	
@@ -54,33 +56,9 @@
 		</div>
 
 
-	</div>
+	</div>	
 	
-	
-<script type="text/javascript">	
-function serFocus(i){
-	$(".servicesPop").slideDown("normal");
-	changeflash(i-1);
-}
-function closeSerPop(){
-	$(".servicesPop").slideUp("fast");
-}
-var currentindex=1;
-function changeflash(i){	
-	currentindex=i;
-	for (j=0;j<=100;j++){
-		if(j==i){			
-			$("#flash"+(j)).css("display","block");
-			$("#f"+j).removeClass();
-			$("#f"+j).addClass("dq");
-		}else{
-			$("#flash"+(j)).css("display","none");
-			$("#f"+j).removeClass();
-			$("#f"+j).addClass("no");
-		}
-	}
-}
-</script>
+
 
 
 	<div class="case_details case">
@@ -98,16 +76,53 @@ function changeflash(i){
 			<div class="case_price_w">
 				<img class="fl" src="/{$result.img_url}" width="300" />
 				<div class="case_price_data">
-					<p>公司名称：深圳市联众贝尔木来有限公司</p>
-					<p>公司地址：广东省深圳市宝安区大道666号</p>
-					<p>服务热线：<span>400-688-5037</span></p>
-					<a href="" target="_blank" class="price_btn">点击咨询</a>
+					<p>公司名称：深圳市联众贝尔木业有限公司</p>
+					<p>公司地址：深圳市宝安区松岗街道塘下涌鑫永盛工业园三栋</p>
+					<p>服务热线：<span>400-068-1118</span></p>
+					<a href="#" class="price_btn">点击咨询</a>
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<include file="./Tpl/Template_muwu/footer.html" />	
+<script type="text/javascript">
+$(function() {
+	// 产品详情跳转
+	var pro_nav = $(".pro_nav").offset().top;
+	var arr = [tz(".case_bg"),tz(".case_img"),tz(".case_details"),tz(".case_price")];
+	
+    $(".pro_nav ul li").click(function(){
+    	var index = $(this).index();
+        $("html,body").animate({scrollTop: arr[index]},"fast");
+    });
+
+    $(window).scroll(function() {
+    	var docu_top = $(document).scrollTop();
+    	if (docu_top >= pro_nav) {
+	    	$(".pro_nav").addClass('pro_fixed');
+	    }else{
+	    	$(".pro_nav").removeClass('pro_fixed');
+	    }
+    });
+
+    $(".pro_nav ul li").click(function(){
+        $(this).addClass('on').siblings().removeClass('on');
+    });
+
+})
+
+function tz(selects) {
+	var tz=$(selects).offset().top;
+	var pro_h = $(".pro_nav").height();
+	var winH=$(window).height();
+	var tzH=$(selects).outerHeight();
+	var result = tz - (pro_h*2);
+	return result;
+}
+
+var viewer = new Viewer(document.getElementById('product_img'));
+</script>
 </div>
 </body>
 </html>

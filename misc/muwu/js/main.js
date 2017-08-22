@@ -1,4 +1,13 @@
 $(function() {
+	var windowwidth = $(window).width(); 
+	$('.banner').width(windowwidth);
+	$('.banner').height(windowwidth*600/1920);
+	$('.banner ul li').width(windowwidth);
+	$('.banner ul li a').width(windowwidth);
+	$('.banner ul li a img').width(windowwidth);
+	$(".nav").css('top',windowwidth*600/1920);
+	
+	
 	var index=0, picTimer=null;
 	var len = $('.banner li').length;
 	var sWidth = $('.banner').width();

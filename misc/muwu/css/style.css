@@ -29,10 +29,10 @@ textarea{resize:none;}
 /*头部导航*/
 .header{background: #fff; border-bottom: 1px solid #c9c9c9; box-shadow: 0 2px 2px #c9c9c9;}
 .header .h_inner{height: 68px; line-height: 68px;}
-.h_inner .logo{display: inline-block; height: 39px; line-height: 39px; padding-left: 56px; background: url(../images/bg/logo.png) no-repeat; color: #494949; font-size: 16px; text-decoration: none;}
-.h_inner ul{position: absolute; left: 400px;top: 0;}
-.h_inner li{width: 72px; float: left; text-align: center; margin-right: 46px;}
-.h_inner li a{display: block; width: 72px; height: 68px; line-height: 68px; text-align: center; color: #929292; font-size: 14px; text-decoration: none;}
+.h_inner .logo{display: inline-block; height: 60px; line-height: 20px; padding: 10px 0 0 56px; background: url(../images/bg/logo.png) no-repeat 0px 9px; color: #494949; font-size: 16px; font-weight:bold;text-decoration: none;}
+.h_inner ul{position: absolute; left: 500px;top: 0;}
+.h_inner li{width: 60px; float: left; text-align: center; margin-right: 46px;}
+.h_inner li a{display: block; width: 60px; height: 68px; line-height: 68px; text-align: center; color: #929292; font-size: 14px; text-decoration: none;}
 .h_inner li:hover a,.h_inner li.on a{color: #2b6f36; height: 66px; line-height: 64px;border-top: 2px solid #2b6f36;}
 .h_tel{float: right; background: url(../images/bg/bg1.png) left center no-repeat; color: #929292; line-height: normal; padding-left: 35px; margin-top: 15px;}
 .h_tel p{font-size: 14px;}

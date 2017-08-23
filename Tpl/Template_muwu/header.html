@@ -1,6 +1,9 @@
 <div class="header">
-	<div class="h_inner">
-		<a href="" target="_blank" class="logo">深圳市联众贝尔木业有限公司</a>
+	<div class="h_inner" onclick="tz()">		
+		<div class="logo">
+			<p>深圳市联众贝尔木业有限公司</p>
+			<p>Shenzhen Lianzhong Bel Wood Industry Co.,Ltd</p>
+		</div>
 		<ul class="clearfix">
 			<li <if condition="$pos eq index">class="on"</if>><a href="/">首页</a></li>
 			<li <if condition="$pos eq product">class="on"</if>><a href="/product/" target="">产品中心</a></li>
@@ -14,3 +17,8 @@
 		</div>
 	</div>
 </div>
+<script>
+function tz(){
+window.location.href="http://www.lzbel.com";
+}
+</script>

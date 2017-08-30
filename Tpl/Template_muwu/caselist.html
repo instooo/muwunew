@@ -6,9 +6,6 @@
 	<link rel="stylesheet" type="text/css" href="/misc/muwu/css/style.css">
 	<script src="/misc/muwu/js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/misc/muwu/js/main.js" type="text/javascript" charset="utf-8"></script>
-    <script type="text/javascript" src="/misc/muwu/js/jquery.lightbox-0.5.js"></script>
-    <link rel="stylesheet" type="text/css" href="/misc/muwu/css/jquery.lightbox-0.5.css" media="screen" />
-	
 </head>
 <body>
 <div class="wrap">
@@ -32,7 +29,7 @@
 			<div class="con_right fl">
 				<div class="product">
 				<volist name="case" id="vo">       
-				<a href="/{$vo.img_url}"  <if condition="($key+1)%3 eq 0">class="margin0"</if> style=" height:auto;">
+				<a href="/product/detail/id/{$vo.aid}" target="_blank"  <if condition="($key+1)%3 eq 0">class="margin0"</if> style=" height:auto;">
 						<img src="/{$vo.img_url}" width="310" height="174"/>
 						<!--<div class="pro_info">
 							<h4><i></i><span>{$vo.title}</span></h4>
@@ -47,13 +44,6 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript">
-    $(function() {
-        $('.product a').lightBox({
-		containerResizeSpeed:10,		
-		});
-    });
-    </script>
 	<include file="./Tpl/Template_muwu/footer.html" />	
 </div>
 </body>

@@ -39,4 +39,36 @@ class AboutAction extends CommonAction{
 		$this->assign ( 'list', $list );			
 		$this->display ( TMPL_PATH . C ( "DEFAULT_GROUP" ) . '/about.html' );
 	}
+	//列表页
+	public function pic() {
+	
+		//公司简介
+		$article = M('article');
+		$typeid = I('get.id','','htmlspecialchars');
+		$typeid=($typeid=='')?23:$typeid;		
+		
+		$category = M('category');	
+		$where['typeid'] = $typeid;
+		$result = $category->where($where)->find();	
+		
+		$map['typeid'] = 27;
+		import('ORG.Util.Page');// 导入分页类
+		$count      = $article->where($map)->count();
+		$Page       = new Page($count,20);
+		$show       = $Page->show();
+		$piclist = $article->where($map)->order('aid desc')->limit($Page->firstRow.','.$Page->listRows)->select();
+		unset($map);
+		
+		//获取子栏目
+		$fid = $result['fid']==0?$result['typeid']:	$result['fid'];			
+		$map['fid'] = $fid;
+		$list = $category->where($map)->select();		
+		
+		$this->assign ( 'result', $result);			
+		$this->assign ( 'list', $list );
+		$this->assign ( 'page', $show );
+		$this->assign ( 'pic', $piclist );					
+		$this->display ( TMPL_PATH . C ( "DEFAULT_GROUP" ) . '/pic.html' );
+	}
+	
 }

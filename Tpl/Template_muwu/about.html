@@ -21,7 +21,7 @@
 			<div class="con_nav fl">
 				<ul>
 					<volist name='list' id='vo'>
-					<li <if condition="$vo['typeid'] eq $result['typeid']">class="on"</if>><a href="/about/index/id/{$vo.typeid}">{$vo.typename}</a></li>
+					<li <if condition="$vo['typeid'] eq $result['typeid']">class="on"</if>><a <if condition="$vo['typeid'] neq 27">href="/about/index/id/{$vo.typeid}" <else/>href="/about/pic/id/{$vo.typeid}"</if>>{$vo.typename}</a></li>
 					</volist>
 				</ul>
 			</div>

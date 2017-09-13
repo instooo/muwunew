@@ -23,9 +23,9 @@
 <link href="__PUBLIC__/admin/css/table_form.css" rel="stylesheet" type="text/css">
 <link href="__PUBLIC__/admin/css/Admin_css.css" type=text/css rel=stylesheet>
 <script src="__PUBLIC__/admin/js/jquery.min.js"></script>
-<script type="text/javascript" src="__PUBLIC__/ueditor/editor_config.js"></script>
-<script type="text/javascript" src="__PUBLIC__/ueditor/editor_all_min.js"></script> 
-<link rel="stylesheet" href="__PUBLIC__/ueditor/themes/default/css/ueditor.css">
+<!--百度编辑器-->
+<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.all.min.js"></script> 
 <style type="text/css">
 input[type="text"]{height: 18px;}
 </style>
@@ -157,10 +157,14 @@ function chk()
 <input type="submit" class="send" value="发布"/> <input type="reset" value="重置" />
 </form>
 <script type="text/javascript">
-    var editor = new UE.ui.Editor({initialContent:''});
-    editor.render("editor_bj");
-	var editora = new UE.ui.Editor({initialContent:''});
-	editora.render("editor_xq");
+var editor = UE.getEditor("editor_bj",{
+		initialFrameWidth : 1000,
+		initialFrameHeight: 400
+	});	
+	var editora = UE.getEditor("editor_xq",{
+		initialFrameWidth : 1000,
+		initialFrameHeight: 400
+	});	
 </script> 
  </body>
 </html>
